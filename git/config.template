@@ -1,0 +1,29 @@
+[user]
+  name = $GIT_USER_NAME
+  email = $GIT_USER_EMAIL
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = false
+[difftool "vimdiff"]
+  cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
+[diff]
+  tool = vimdiff
+[difftool]
+  promt = false
+[alias]
+  co = checkout
+  st = status
+  com = checkout master
+  code = checkout develop
+  cos = checkout staging
+  plog = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  d = -p diff
+  dt = difftool
+  ds = diff --stat
+  mt = mergetool
