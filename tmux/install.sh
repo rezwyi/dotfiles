@@ -1,8 +1,8 @@
 #!/bin/sh
 
-mkdir -p ~/.tmux && cd ~/.tmux
+mkdir -p $HOME/.tmux && cd $HOME/.tmux
 git clone https://github.com/seebi/tmux-colors-solarized.git
 cd -
-cp config ~/.tmux.conf
+cp config $HOME/.tmux.conf
 
 exit 0
