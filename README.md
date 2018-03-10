@@ -6,9 +6,11 @@ Feel free to use these files whatever you want.
 
 You need to have the following software installed on your system:
 
+1. Any terminal program supports 256 colors
 1. `envsubst` (part of `gettext`)
-2. `tmux` >= 2.1
-3. `git`
+1. `tmux` >= 2.1
+1. `git`
+1. `vim`
 
 ## Install
 
