@@ -1,0 +1,41 @@
+syntax enable
+set background=light
+colorscheme solarized
+
+set nocompatible
+set nobackup
+set hls
+set ic
+set incsearch
+set history=4096
+set number
+set ruler
+set expandtab
+set shiftwidth=2
+set tabstop=2
+set shiftround
+set splitbelow
+set splitright
+set autoindent
+set backspace=indent,eol,start
+set clipboard=unnamed
+set showcmd
+set encoding=utf8
+set t_Co=256
+set laststatus=2
+set noswapfile
+set cursorline
+set nowrap
+set switchbuf+=newtab
+
+filetype plugin on
+
+"Netrw plugin
+let g:netrw_liststyle=5
+let g:netrw_browse_split=1
+let g:netrw_preview=1
+let g:netrw_alto=0
+let g:netrw_keepdir=0
+let g:netrw_list_hide='^.*\.sw[po]'
+let g:netrw_maxfilenamelen=48
+let g:netrw_winsize=150
