@@ -28,6 +28,7 @@ set wrap
 set switchbuf+=newtab
 set eol
 set ffs=mac,unix
+set showmatch
 
 " Setup colorscheme
 set background=light
