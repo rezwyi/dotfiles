@@ -29,6 +29,10 @@ set switchbuf+=newtab
 set eol
 set ffs=mac,unix
 set showmatch
+set lazyredraw
+set ttyfast
+set autoread
+set nostartofline
 
 " Setup colorscheme
 set background=light
