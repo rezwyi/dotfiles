@@ -33,6 +33,10 @@ set lazyredraw
 set ttyfast
 set autoread
 set nostartofline
+set wildmenu
+set wildchar=<TAB>
+set wildmode=longest:list,full
+set wildignore+=.DS_Store,*.jpg,*.png,*.gif,node_modules/**,vendor/bundle/**
 
 " Setup colorscheme
 set background=light
