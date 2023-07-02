@@ -1,5 +1,4 @@
 ---
 setup_system_packages:
-  - git
   - vim
   - tmux
