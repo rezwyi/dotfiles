@@ -1,0 +1,6 @@
+---
+- name: Include OS specific variables
+  ansible.builtin.include_tasks: vars.yaml
+
+- name: Install packages
+  ansible.builtin.include_tasks: install.yaml
