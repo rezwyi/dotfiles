@@ -1,5 +1,12 @@
 ---
+setup_system_username: foobar
+setup_system_user_group: "{{ setup_system_username }}"
+setup_system_user_home: /home/{{ setup_system_username }}
+
 setup_dist_packages:
   - vim
   - tmux
   - python3-pip
+
+setup_git_username: foobar
+setup_git_user_email: foo@bar.baz

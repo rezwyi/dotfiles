@@ -4,3 +4,6 @@
 
 - name: Install packages
   ansible.builtin.include_tasks: install.yaml
+
+- name: Setup Git
+  ansible.builtin.include_tasks: setup-git.yaml
