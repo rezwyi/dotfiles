@@ -4,6 +4,6 @@
     name: "{{ __item }}"
     state: present
   loop:
-    - "{{ setup_system_packages }}"
+    - "{{ setup_dist_packages }}"
   loop_control:
     loop_var: __item

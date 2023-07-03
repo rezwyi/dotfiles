@@ -1,4 +1,5 @@
 ---
-setup_system_packages:
+setup_dist_packages:
   - vim
   - tmux
+  - python3-pip
