@@ -11,7 +11,7 @@ You need to have the following software installed on your system:
 To install `git` do the following:
 
 ```shell
-sudo apt update && apt install git
+sudo apt update && sudo apt install git
 ```
 
 To install `Ansible` do the following:
