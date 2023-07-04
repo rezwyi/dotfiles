@@ -7,3 +7,6 @@
 
 - name: Setup Git
   ansible.builtin.include_tasks: setup-git.yaml
+
+- name: Setup Vim
+  ansible.builtin.include_tasks: setup-vim.yaml
