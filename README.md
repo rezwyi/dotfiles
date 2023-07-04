@@ -1,28 +1,37 @@
-# My dotfiles
-
-Feel free to use these files whatever you want.
+# dotfiles
 
 ## Prerequisites
 
 You need to have the following software installed on your system:
 
 1. Any terminal program supports 256 colors
-1. `envsubst` (part of `gettext`)
-1. `tmux` >= 2.1
 1. `git`
-1. `vim`
+1. `Ansible`
 
-## Install
+To install `git` do the following:
 
-You can install all config files at once like this:
-
-```bash
-export GIT_USER_NAME=<your name>
-export GIT_USER_EMAIL=<you email>
-
-git clone https://github.com/rezwyi/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-for f in `find . -name install.sh`; do cd `dirname $f` && ./install.sh && cd -; done
+```shell
+sudo apt update && apt install git
 ```
 
-Or, go to directory you need and run `install.sh`.
+To install `Ansible` do the following:
+
+```shell
+sudo apt update && sudo apt install -y \
+  build-essential \
+  libssl-dev \
+  libffi-dev \
+  python3-dev \
+  python3-pip
+
+pip3 install --upgrade --user ansible
+```
+
+## Setup
+
+```shell
+git clone https://github.com/rezwyi/dotfiles.git
+cd dotfiles
+ansible-playbook setup.yaml --extra-envs "@ansible/extra-vars/<envs-for-your-system>.yaml"
+cd -
+```

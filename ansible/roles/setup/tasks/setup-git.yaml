@@ -1,0 +1,8 @@
+---
+- name: Generate .gitconfig file
+  ansible.builtin.template:
+    src: git-config.j2
+    dest: "{{ setup_system_user_home }}/.gitconfig"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_username }}"
+    mode: "0644"

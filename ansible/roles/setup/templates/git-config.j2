@@ -1,21 +1,29 @@
+[core]
+  filemode = false
 [user]
-  name = $GIT_USER_NAME
-  email = $GIT_USER_EMAIL
+  name = {{ setup_git_username }}
+  email = {{ setup_git_user_email }}
+[credential]
+  helper = cache --timeout=604800
+[diff "bin"]
+  textconv = hexdump -v -C
+[credentials]
+  helper = store
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
-[merge]
-  tool = vimdiff
-[mergetool]
-  prompt = false
 [difftool "vimdiff"]
   cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
 [diff]
   tool = vimdiff
 [difftool]
   promt = false
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = false
 [alias]
   co = checkout
   st = status

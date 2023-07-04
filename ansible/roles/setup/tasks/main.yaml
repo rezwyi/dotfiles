@@ -1,0 +1,15 @@
+---
+- name: Include OS specific variables
+  ansible.builtin.include_tasks: vars.yaml
+
+- name: Install packages
+  ansible.builtin.include_tasks: install.yaml
+
+- name: Setup Git
+  ansible.builtin.include_tasks: setup-git.yaml
+
+- name: Setup Vim
+  ansible.builtin.include_tasks: setup-vim.yaml
+
+- name: Setup Tmux
+  ansible.builtin.include_tasks: setup-tmux.yaml

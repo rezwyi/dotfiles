@@ -1,0 +1,9 @@
+---
+- name: Ensure all packages is installed
+  ansible.builtin.package:
+    name: "{{ __item }}"
+    state: present
+  loop:
+    - "{{ setup_dist_packages }}"
+  loop_control:
+    loop_var: __item
