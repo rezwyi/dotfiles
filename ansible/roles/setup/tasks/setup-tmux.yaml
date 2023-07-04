@@ -1,0 +1,23 @@
+---
+- name: Create tmux dir
+  ansible.builtin.file:
+    path: "{{ setup_system_user_home }}/.tmux"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0755"
+    state: directory
+
+- name: Download and install Tmux solarized theme
+  ansible.builtin.git:
+    repo: https://github.com/darcyparker/tmux-colors-solarized.git
+    dest: "{{ setup_system_user_home }}/.tmux/tmux-colors-solarized/"
+    update: no
+    version: updateOptionsRemovedFromTmux
+
+- name: Generate .tmux.conf file
+  ansible.builtin.template:
+    src: tmux-config.j2
+    dest: "{{ setup_system_user_home }}/.tmux.conf"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0644"

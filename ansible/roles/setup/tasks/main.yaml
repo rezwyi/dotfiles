@@ -10,3 +10,6 @@
 
 - name: Setup Vim
   ansible.builtin.include_tasks: setup-vim.yaml
+
+- name: Setup Tmux
+  ansible.builtin.include_tasks: setup-tmux.yaml
