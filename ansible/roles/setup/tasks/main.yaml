@@ -13,3 +13,6 @@
 
 - name: Setup Tmux
   ansible.builtin.include_tasks: setup-tmux.yaml
+
+- name: Setup zsh
+  ansible.builtin.include_tasks: setup-zsh.yaml
