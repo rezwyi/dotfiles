@@ -1,1 +1,5 @@
 ---
+- name: Ensure Zsh is the user's shell
+  ansible.builtin.user:
+    name: "{{ setup_system_username }}"
+    shell: /usr/bin/zsh
