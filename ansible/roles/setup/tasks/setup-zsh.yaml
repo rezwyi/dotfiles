@@ -9,8 +9,8 @@
   ansible.builtin.shell: |
     set -o pipefail && \
       curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | \
-      zsh -
+      bash -
     args:
       chdir: "{{ setup_system_user_home }}"
       creates: .install/oh-my-zsh.sh
-      executable: /usr/bin/zsh
+      executable: /usr/bin/bash
