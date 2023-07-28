@@ -10,7 +10,7 @@
     set -o pipefail && \
       curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | \
       bash -
-    args:
-      chdir: "{{ setup_system_user_home }}"
-      creates: .install/oh-my-zsh.sh
-      executable: /usr/bin/bash
+  args:
+    chdir: "{{ setup_system_user_home }}"
+    creates: .install/oh-my-zsh.sh
+    executable: /usr/bin/bash
