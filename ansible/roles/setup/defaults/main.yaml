@@ -11,4 +11,4 @@ setup_dist_packages:
 setup_git_username: foobar
 setup_git_user_email: foo@bar.baz
 
-setup_zsh_theme: gnzh
+setup_zsh_theme: gnzh.no-ruby-prompt

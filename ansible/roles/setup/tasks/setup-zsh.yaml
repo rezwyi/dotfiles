@@ -4,6 +4,11 @@
     name: "{{ setup_system_username }}"
     shell: /usr/bin/zsh
 
+- name: Absent existing ~/.oh-my-zsh dir
+  ansible.builtin.file:
+    path: "{{ setup_system_user_home }}/.oh-my-zsh"
+    state: absent
+
 - name: Download and install oh-my-zsh
   become_user: "{{ setup_system_username }}"
   ansible.builtin.shell: |
@@ -15,9 +20,17 @@
     creates: .install/oh-my-zsh.sh
     executable: /usr/bin/bash
 
+- name: Install gnzh.no-ruby-prompt.zsh-theme
+  ansible.builtin.copy:
+    src: files/zsh/themes/gnzh.no-ruby-prompt.zsh-theme
+    dest: "{{ setup_system_user_home }}/.oh-my-zsh/themes/gnzh.no-ruby-prompt.zsh-theme"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0644"
+
 - name: Generate .zshrc file
   ansible.builtin.template:
-    src: zsh-config.j2
+    src: zshrc.j2
     dest: "{{ setup_system_user_home }}/.zshrc"
     owner: "{{ setup_system_username }}"
     group: "{{ setup_system_user_group }}"
