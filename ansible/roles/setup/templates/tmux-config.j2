@@ -19,9 +19,6 @@ set-option -g set-titles on
 # Mouse
 setw -g mouse on
 
-# Color
-source-file ~/.tmux/tmux-colors-solarized/tmuxcolors-light.conf
-
 # Prefix
 unbind C-b
 set-option -g prefix C-a
@@ -63,3 +60,4 @@ set-option -g status-left-length 90
 set-option -g status-right-length 90
 set-option -g status-left '#[fg=green](#S) #(whoami)@#(hostname)'
 set-option -g status-right '#[fg=green]#(date "+%-d/%-m/%y %H:%M")'
+set-option -g status-style fg=yellow,bg=white

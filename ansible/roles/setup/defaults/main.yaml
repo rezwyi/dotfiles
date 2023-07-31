@@ -6,6 +6,9 @@ setup_system_user_home: /home/{{ setup_system_username }}
 setup_dist_packages:
   - vim
   - tmux
+  - zsh
 
 setup_git_username: foobar
 setup_git_user_email: foo@bar.baz
+
+setup_zsh_theme: gnzh.no-ruby-prompt
