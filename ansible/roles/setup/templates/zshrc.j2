@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 
 # Some env variables
 export GOPATH=$HOME/.go
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/go/bin:$GOPATH/bin:$HOME/.local/bin:$HOME/.rvm/bin
+export PATH=/usr/X11/bin:/usr/local/share/npm/bin:/usr/local/go/bin:$GOPATH/bin:$HOME/.local/bin:$PATH
 export PLATFORM="linux"
 export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
@@ -33,16 +33,16 @@ unsetopt correct
 source $ZSH/oh-my-zsh.sh
 
 # Load some useful aliases
-[[ "${HOME}/.shell_aliases" ]] && source "${HOME}/.shell_aliases"
+[[ -f "${HOME}/.shell_aliases" ]] && source "${HOME}/.shell_aliases"
 
 # Load shell env variables
-[[ "${HOME}/.shell_envs" ]] && source "${HOME}/.shell_envs"
+[[ -f "${HOME}/.shell_envs" ]] && source "${HOME}/.shell_envs"
 
 # Load work directories
-[[ "${HOME}/.work_dirs" ]] && source "${HOME}/.work_dirs"
+[[ -f "${HOME}/.work_dirs" ]] && source "${HOME}/.work_dirs"
 
 # Load some useful functions
-[[ "${HOME}/.shell_funcs" ]] && source "${HOME}/.shell_funcs"
+[[ -f "${HOME}/.shell_funcs" ]] && source "${HOME}/.shell_funcs"
 
 # Enables autocompletion
-[[ "${HOME}/.shell_autocomp" ]] && source "${HOME}/.shell_autocomp"
+[[ -f "${HOME}/.shell_autocomp" ]] && source "${HOME}/.shell_autocomp"
