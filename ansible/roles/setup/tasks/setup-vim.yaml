@@ -24,11 +24,6 @@
     dest: "{{ setup_system_user_home }}/.vim/bundle/nerdtree"
     update: no
 
-- name: Copy vim files
-  ansible.builtin.copy:
-    src: files/vim/
-    dest: "{{ setup_system_user_home }}/.vim/"
-
 - name: Generate .vimrc file
   ansible.builtin.template:
     src: vim-config.j2

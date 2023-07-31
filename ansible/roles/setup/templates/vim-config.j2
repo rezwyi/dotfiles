@@ -36,13 +36,10 @@ set wildchar=<TAB>
 set wildmode=longest:list,full
 set wildignore+=.DS_Store,*.jpg,*.png,*.gif,node_modules/**,vendor/bundle/**
 
+" Setup pathogen
 call pathogen#infect()
 syntax on
 filetype plugin indent on
-
-" Setup colorscheme
-set background=light
-colorscheme solarized
 
 " NERDTree plugin
 let g:NERDTreeShowHidden=1

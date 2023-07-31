@@ -7,13 +7,6 @@
     mode: "0755"
     state: directory
 
-- name: Download and install Tmux solarized theme
-  ansible.builtin.git:
-    repo: https://github.com/darcyparker/tmux-colors-solarized.git
-    dest: "{{ setup_system_user_home }}/.tmux/tmux-colors-solarized/"
-    update: no
-    version: updateOptionsRemovedFromTmux
-
 - name: Generate .tmux.conf file
   ansible.builtin.template:
     src: tmux-config.j2
