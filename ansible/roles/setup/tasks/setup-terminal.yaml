@@ -4,6 +4,7 @@
     which gnome-terminal
   register: __gnome_terminal_bin_file
   changed_when: false
+  ignore_errors: true
 
 - name: Copy gtk.css
   ansible.builtin.copy:
