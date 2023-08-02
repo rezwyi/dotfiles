@@ -16,3 +16,6 @@
 
 - name: Setup zsh
   ansible.builtin.include_tasks: setup-zsh.yaml
+
+- name: Setup terminal
+  ansible.builtin.include_tasks: setup-terminal.yaml
