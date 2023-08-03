@@ -2,3 +2,7 @@
 setup_system_username: ubuntu
 setup_git_username: Sergey Rezvanov
 setup_git_user_email: im@rezwyi.ru
+
+setup_gnome_terminal_font_size: 11
+setup_gnome_terminal_default_size_columns: 180
+setup_gnome_terminal_default_size_rows: 45

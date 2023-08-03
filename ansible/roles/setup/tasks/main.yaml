@@ -2,6 +2,18 @@
 - name: Include OS specific variables
   ansible.builtin.include_tasks: vars.yaml
 
+- name: Create required dirs
+  ansible.builtin.file:
+    path: "{{ __item }}"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0755"
+    state: directory
+  loop:
+    - "{{ setup_system_user_template_dir }}"
+  loop_control:
+    loop_var: __item
+
 - name: Install packages
   ansible.builtin.include_tasks: install.yaml
 
@@ -16,3 +28,6 @@
 
 - name: Setup zsh
   ansible.builtin.include_tasks: setup-zsh.yaml
+
+- name: Setup terminal
+  ansible.builtin.include_tasks: setup-terminal.yaml

@@ -1,0 +1,11 @@
+---
+- name: Check gnome-terminal is installed
+  ansible.builtin.shell: >
+    echo $(which gnome-terminal)
+  register: __gnome_terminal_bin_file
+  changed_when: false
+
+- name: Include gnome-terminal setup tasks
+  ansible.builtin.include_tasks: setup-terminal/gnome-terminal.yaml
+  when:
+    - __gnome_terminal_bin_file.stdout != ""

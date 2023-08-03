@@ -4,10 +4,18 @@
     name: "{{ setup_system_username }}"
     shell: /usr/bin/zsh
 
-- name: Absent existing ~/.oh-my-zsh dir
+- name: Check ~/.oh-my-zsh dir
+  ansible.builtin.stat:
+    path: "{{ setup_system_user_home }}/.oh-my-zsh"
+  register: __oh_my_zsh_dir
+
+- name: Absent ~/.oh-my-zsh dir
   ansible.builtin.file:
     path: "{{ setup_system_user_home }}/.oh-my-zsh"
     state: absent
+  when:
+    - __oh_my_zsh_dir.stat.exists
+    - setup_zsh_oh_my_zsh_reinstall
 
 - name: Download and install oh-my-zsh
   become_user: "{{ setup_system_username }}"
@@ -17,8 +25,9 @@
       bash -
   args:
     chdir: "{{ setup_system_user_home }}"
-    creates: .install/oh-my-zsh.sh
     executable: /usr/bin/bash
+  when:
+    - not __oh_my_zsh_dir.stat.exists or setup_zsh_oh_my_zsh_reinstall
 
 - name: Install gnzh.no-ruby-prompt.zsh-theme
   ansible.builtin.copy:
