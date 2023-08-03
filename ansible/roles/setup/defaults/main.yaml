@@ -12,3 +12,4 @@ setup_git_username: foobar
 setup_git_user_email: foo@bar.baz
 
 setup_zsh_theme: gnzh.no-ruby-prompt
+setup_zsh_oh_my_zsh_reinstall: false
