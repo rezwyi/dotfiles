@@ -2,6 +2,7 @@
 setup_system_username: foobar
 setup_system_user_group: "{{ setup_system_username }}"
 setup_system_user_home: /home/{{ setup_system_username }}
+setup_system_user_template_dir: "{{ setup_system_user_home }}/.templates"
 
 setup_dist_packages:
   - vim
@@ -13,3 +14,9 @@ setup_git_user_email: foo@bar.baz
 
 setup_zsh_theme: gnzh.no-ruby-prompt
 setup_zsh_oh_my_zsh_reinstall: false
+
+setup_gnome_terminal_font_name: Monospace
+setup_gnome_terminal_font_size: 12
+setup_gnome_terminal_font: "{{ setup_gnome_terminal_font_name }} {{ setup_gnome_terminal_font_size }}"
+setup_gnome_terminal_default_size_columns: 120
+setup_gnome_terminal_default_size_rows: 48

@@ -1,17 +1,11 @@
 ---
 - name: Check gnome-terminal is installed
   ansible.builtin.command: >
-    which gnome-terminal
+    echo $commands[gnome-terminal]
   register: __gnome_terminal_bin_file
   changed_when: false
-  ignore_errors: true
 
-- name: Copy gtk.css
-  ansible.builtin.copy:
-    src: gtk-3.0/gtk.css
-    dest: "{{ setup_system_user_home }}/.config/gtk-3.0/gtk.css"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
-    mode: "0644"
+- name: Include gnome-terminal setup tasks
+  ansible.builtin.include_tasks: setup-terminal/gnome-terminal.yaml
   when:
-    - __gnome_terminal_bin_file.rc == 0
+    - __gnome_terminal_bin_file.stdout != ""
