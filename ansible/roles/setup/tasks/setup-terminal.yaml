@@ -1,7 +1,7 @@
 ---
 - name: Check gnome-terminal is installed
-  ansible.builtin.command: >
-    echo $commands[gnome-terminal]
+  ansible.builtin.shell: >
+    echo $(which gnome-terminal)
   register: __gnome_terminal_bin_file
   changed_when: false
 
