@@ -24,9 +24,7 @@ else
   PR_HOST='%F{green}%M%f' # no SSH
 fi
 
-
 local return_code="%(?..%F{red}%? ↵%f)"
-
 local user_host="${PR_USER}%F{cyan}@${PR_HOST}"
 local current_dir="%B%F{blue}%~%f%b"
 local git_branch='$(git_prompt_info)'
