@@ -11,6 +11,7 @@
     state: directory
   loop:
     - "{{ setup_system_user_template_dir }}"
+    - "{{ setup_system_user_home }}/.config"
   loop_control:
     loop_var: __item
 
@@ -31,3 +32,6 @@
 
 - name: Setup terminal
   ansible.builtin.include_tasks: setup-terminal.yaml
+
+- name: Setup python
+  ansible.builtin.include_tasks: setup-python.yaml

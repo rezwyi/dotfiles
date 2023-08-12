@@ -1,0 +1,6 @@
+---
+- name: Install specified python requirements
+  become_user: "{{ setup_system_username }}"
+  ansible.builtin.pip:
+    requirements: "{{ role_path }}/files/python-pip/requirements.txt"
+    extra_args: --user
