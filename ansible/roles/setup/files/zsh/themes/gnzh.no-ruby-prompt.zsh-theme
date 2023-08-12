@@ -24,9 +24,7 @@ else
   PR_HOST='%F{green}%M%f' # no SSH
 fi
 
-
 local return_code="%(?..%F{red}%? ↵%f)"
-
 local user_host="${PR_USER}%F{cyan}@${PR_HOST}"
 local current_dir="%B%F{blue}%~%f%b"
 local git_branch='$(git_prompt_info)'
@@ -37,7 +35,5 @@ RPROMPT="${return_code}"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%F{yellow}‹"
 ZSH_THEME_GIT_PROMPT_SUFFIX="› %f"
-ZSH_THEME_RUBY_PROMPT_PREFIX="%F{red}‹"
-ZSH_THEME_RUBY_PROMPT_SUFFIX="›%f"
 
 }
