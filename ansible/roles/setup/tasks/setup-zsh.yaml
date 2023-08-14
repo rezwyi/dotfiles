@@ -1,4 +1,17 @@
 ---
+- name: Create source files
+  ansible.builtin.file:
+    path: "{{ setup_system_user_home }}/{{ __item }}"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0644"
+    state: touch
+    access_time: preserve
+    modification_time: preserve
+  loop: "{{ setup_zshrc_source_files }}"
+  loop_control:
+    loop_var: __item
+
 - name: Ensure Zsh is the user's shell
   ansible.builtin.user:
     name: "{{ setup_system_username }}"

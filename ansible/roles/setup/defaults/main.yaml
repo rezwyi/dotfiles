@@ -14,6 +14,12 @@ setup_git_user_email: foo@bar.baz
 
 setup_zsh_theme: gnzh.no-ruby-prompt
 setup_zsh_oh_my_zsh_reinstall: false
+setup_zshrc_source_files:
+  - .shell_aliases
+  - .shell_autocomp
+  - .shell_envs
+  - .shell_funcs
+  - .work_dirs
 
 setup_gnome_terminal_font_name: Monospace
 setup_gnome_terminal_font_size: 12

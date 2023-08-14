@@ -21,14 +21,14 @@
 - name: Setup Git
   ansible.builtin.include_tasks: setup-git.yaml
 
+- name: Setup zsh
+  ansible.builtin.include_tasks: setup-zsh.yaml
+
 - name: Setup Vim
   ansible.builtin.include_tasks: setup-vim.yaml
 
 - name: Setup Tmux
   ansible.builtin.include_tasks: setup-tmux.yaml
-
-- name: Setup zsh
-  ansible.builtin.include_tasks: setup-zsh.yaml
 
 - name: Setup terminal
   ansible.builtin.include_tasks: setup-terminal.yaml

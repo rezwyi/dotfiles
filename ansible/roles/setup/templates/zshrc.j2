@@ -32,17 +32,7 @@ unsetopt correct
 # Load Oh-my-zsh environment
 source $ZSH/oh-my-zsh.sh
 
-# Load some useful aliases
-[[ -f "${HOME}/.shell_aliases" ]] && source "${HOME}/.shell_aliases"
-
-# Load shell env variables
-[[ -f "${HOME}/.shell_envs" ]] && source "${HOME}/.shell_envs"
-
-# Load work directories
-[[ -f "${HOME}/.work_dirs" ]] && source "${HOME}/.work_dirs"
-
-# Load some useful functions
-[[ -f "${HOME}/.shell_funcs" ]] && source "${HOME}/.shell_funcs"
-
-# Enables autocompletion
-[[ -f "${HOME}/.shell_autocomp" ]] && source "${HOME}/.shell_autocomp"
+# Source files
+{% for __sf in setup_zshrc_source_files %}
+[[ -f "${HOME}/{{ __sf }}" ]] && source "${HOME}/{{ __sf }}"
+{% endfor %}
