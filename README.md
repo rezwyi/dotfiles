@@ -32,6 +32,6 @@ pip3 install --upgrade --user ansible
 ```shell
 git clone https://github.com/rezwyi/dotfiles.git
 cd dotfiles
-ansible-playbook setup.yaml --extra-vars "@ansible/extra-vars/<envs-for-your-system>.yaml"
+ansible-playbook main.yaml --extra-vars "@ansible/extra-vars/<envs-for-your-system>.yaml"
 cd -
 ```

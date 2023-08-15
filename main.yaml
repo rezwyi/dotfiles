@@ -1,7 +1,7 @@
 ---
-- name: Setup
+- name: Run dotfiles role
   hosts: all
   gather_facts: true
   become: true
   roles:
-    - setup
+    - dotfiles
