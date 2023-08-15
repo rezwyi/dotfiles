@@ -2,7 +2,7 @@
 ansible_python_interpreter: /usr/bin/python3
 
 setup_dist_packages:
-  - apt-https-transport
+  - apt-transport-https
   - build-essentials
   - ca-certificates
   - curl
