@@ -1,2 +1,13 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
+
+setup_dist_packages:
+  - apt-https-transport
+  - build-essentials
+  - ca-certificates
+  - curl
+  - jq
+  - tmux
+  - vim
+  - wget
+  - zsh
