@@ -3,6 +3,7 @@
   ansible.builtin.package:
     name: "{{ __item }}"
     state: present
+    update_cache: true
   loop:
     - "{{ setup_dist_packages }}"
   loop_control:
