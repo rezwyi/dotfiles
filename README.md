@@ -6,32 +6,23 @@ You need to have the following software installed on your system:
 
 1. Any terminal program supports 256 colors
 1. `git`
-1. `Ansible`
+1. `ansible`
 
-To install `git` do the following:
-
-```shell
-sudo apt update && sudo apt install git
-```
-
-To install `Ansible` do the following:
+To install do the following (e.g. Ubuntu):
 
 ```shell
 sudo apt update && sudo apt install -y \
-  build-essential \
-  libssl-dev \
-  libffi-dev \
-  python3-dev \
-  python3-pip
+  python3 \
+  python3-pip \
+  git
 
-pip3 install --upgrade --user ansible
+pip install --upgrade --user ansible
 ```
 
-## Setup
+## Run
 
 ```shell
 git clone https://github.com/rezwyi/dotfiles.git
 cd dotfiles
-ansible-playbook setup.yaml --extra-vars "@ansible/extra-vars/<envs-for-your-system>.yaml"
-cd -
+ansible-playbook main.yaml --extra-vars "@ansible/extra-vars/<envs-for-your-system>.yaml"
 ```

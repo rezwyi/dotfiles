@@ -1,6 +1,6 @@
-ansible==8.2.0
+ansible==8.3.0
 ansible-compat==2.2.5
-ansible-core==2.15.2
+ansible-core==2.15.3
 ansible-lint==6.16.2
 arrow==1.2.2
 attrs==22.1.0
