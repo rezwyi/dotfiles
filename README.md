@@ -24,5 +24,14 @@ pip install --upgrade --user ansible
 ```shell
 git clone https://github.com/rezwyi/dotfiles.git
 cd dotfiles
-ansible-playbook main.yaml --extra-vars "@ansible/extra-vars/<envs-for-your-system>.yaml"
+ansible-playbook main.yaml --extra-vars "@<path-to-file-with-envs-for-your-system>.yaml"
+```
+
+Example of extra vars file:
+
+```yaml
+---
+setup_system_username: foobar
+setup_git_username: John Doe
+setup_git_user_email: im@john.doe
 ```
