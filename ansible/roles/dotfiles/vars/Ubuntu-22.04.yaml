@@ -11,3 +11,4 @@ setup_dist_packages:
   - vim
   - wget
   - zsh
+  - ipcalc
