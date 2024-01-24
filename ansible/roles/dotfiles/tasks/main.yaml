@@ -16,7 +16,7 @@
     loop_var: __item
 
 - name: Install dist packages
-  ansible.builtin.include_tasks: install.yaml
+  ansible.builtin.include_tasks: pkg.yaml
 
 - name: Setup Git
   ansible.builtin.include_tasks: setup-git.yaml
