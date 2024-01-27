@@ -51,6 +51,6 @@
     group: "{{ setup_system_user_group }}"
     mode: "0644"
   with_fileglob:
-    - "{{ role_path}}/files/k9s/skins/*"
+    - "{{ role_path }}/files/k9s/skins/*"
   loop_control:
     loop_var: __item

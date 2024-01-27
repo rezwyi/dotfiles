@@ -39,6 +39,7 @@
   args:
     chdir: "{{ setup_system_user_home }}"
     executable: /usr/bin/bash
+  changed: true
   when:
     - not __oh_my_zsh_dir.stat.exists or setup_zsh_oh_my_zsh_reinstall
 

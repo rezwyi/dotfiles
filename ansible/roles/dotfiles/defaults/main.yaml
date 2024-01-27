@@ -16,6 +16,8 @@ setup_zshrc_source_files:
   - .shell_funcs
   - .work_dirs
 
+setup_vim_nerdtree_version: bc606c4
+
 setup_gnome_terminal_font_name: Monospace
 setup_gnome_terminal_font_size: 12
 setup_gnome_terminal_font: "{{ setup_gnome_terminal_font_name }} {{ setup_gnome_terminal_font_size }}"
