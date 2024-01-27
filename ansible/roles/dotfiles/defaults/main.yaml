@@ -21,3 +21,9 @@ setup_gnome_terminal_font_size: 12
 setup_gnome_terminal_font: "{{ setup_gnome_terminal_font_name }} {{ setup_gnome_terminal_font_size }}"
 setup_gnome_terminal_default_size_columns: 120
 setup_gnome_terminal_default_size_rows: 48
+
+setup_k8s_kubectl_version: 1.29.1
+setup_k8s_k9s_version: 0.31.7
+setup_k8s_k9s_ui_skin: solarized-light
+setup_k8s_k9s_shell_pod_image: busybox:1.36.1
+setup_k8s_k9s_shell_pod_namespace: default

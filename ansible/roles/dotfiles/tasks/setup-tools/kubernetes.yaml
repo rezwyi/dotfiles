@@ -1,0 +1,56 @@
+---
+- name: Ensure all directories exists
+  ansible.builtin.file:
+    path: "{{ setup_system_user_home }}/{{ __item }}"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0755"
+    state: directory
+  loop:
+    - .kube
+    - .config/k9s
+    - .config/k9s/skins
+    - .local/state/k9s/screen-dumps
+  loop_control:
+    loop_var: __item
+
+- name: Download and install kubectl
+  ansible.builtin.get_url:
+    url: https://dl.k8s.io/release/v{{ setup_k8s_kubectl_version }}/bin/linux/amd64/kubectl
+    dest: /usr/local/bin
+    mode: "0755"
+  register: __install_kubectl
+  until: __install_kubectl is succeeded
+  retries: 5
+  delay: 2
+
+- name: Download and install k9s
+  ansible.builtin.unarchive:
+    src: https://github.com/derailed/k9s/releases/download/v{{ setup_k8s_k9s_version }}/k9s_Linux_amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    mode: "0755"
+  register: __install_k9s
+  until: __install_k9s is succeeded
+  retries: 5
+  delay: 2
+
+- name: Generate k9s config file
+  ansible.builtin.template:
+    src: k9s-config.yaml.j2
+    dest: "{{ setup_system_user_home }}/.config/k9s/config.yaml"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0644"
+
+- name: Copy k9s solarized-light skin
+  ansible.builtin.copy:
+    src: "{{ __item }}"
+    dest: "{{ setup_system_user_home }}/.config/k9s/skins"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0644"
+  with_fileglob:
+    - "{{ role_path}}/files/k9s/skins/*"
+  loop_control:
+    loop_var: __item

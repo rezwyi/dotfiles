@@ -16,3 +16,6 @@
 
 - name: Setup terminal
   ansible.builtin.include_tasks: setup-tools/terminal.yaml
+
+- name: Setup Kubernetes tools
+  ansible.builtin.include_tasks: setup-tools/kubernetes.yaml
