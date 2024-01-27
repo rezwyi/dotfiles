@@ -22,7 +22,7 @@
       ansible.builtin.shell: >
         dconf load /org/gnome/terminal/legacy/ < {{ setup_system_user_template_dir }}/gnome-terminal-settings
       changed_when: true
-      when:
+      when: # noqa: no-handler
         - __gnome_terminal_settings is changed
   rescue:
     - name: Delete gnome-terminal settings file

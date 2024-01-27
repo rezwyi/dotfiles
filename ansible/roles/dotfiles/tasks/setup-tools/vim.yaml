@@ -22,7 +22,7 @@
   ansible.builtin.git:
     repo: https://github.com/scrooloose/nerdtree.git
     dest: "{{ setup_system_user_home }}/.vim/bundle/nerdtree"
-    update: no
+    version: "{{ setup_vim_nerdtree_version }}"
 
 - name: Generate .vimrc file
   ansible.builtin.template:

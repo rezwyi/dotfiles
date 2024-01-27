@@ -6,6 +6,6 @@
   changed_when: false
 
 - name: Include gnome-terminal setup tasks
-  ansible.builtin.include_tasks: setup-terminal/gnome-terminal.yaml
+  ansible.builtin.include_tasks: setup-tools/terminals/gnome-terminal.yaml
   when:
     - __gnome_terminal_bin_file.stdout != ""
