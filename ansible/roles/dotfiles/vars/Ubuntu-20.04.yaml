@@ -6,9 +6,12 @@ setup_dist_packages:
   - build-essential
   - ca-certificates
   - curl
+  - ipcalc
   - jq
+  - nmap
+  - tcpdump
   - tmux
   - vim
   - wget
+  - wireshark
   - zsh
-  - ipcalc
