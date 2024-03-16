@@ -1,0 +1,40 @@
+---
+- name: Ensure all directories exists
+  ansible.builtin.file:
+    path: "{{ __item }}"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0755"
+    state: directory
+  loop:
+    - "{{ setup_yc_disk_config_dir }}"
+    - "{{ setup_yc_disk_dir }}"
+  loop_control:
+    loop_var: __item
+
+- name: Generate Yandex.Disk config
+  ansible.builtin.template:
+    src: yandex-disk-config.j2
+    dest: "{{ setup_yc_disk_config_dir }}/config.cfg"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0644"
+
+- name: Add an apt signing key for Yandex.Disk
+  ansible.builtin.apt_key:
+    url: http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
+    keyring: /etc/apt/keyrings/yandex-disk.gpg
+    state: present
+
+- name: Adding apt repository for Yandex.Disk
+  ansible.builtin.shell: |
+    set -o pipefail
+    echo 'deb [signed-by=/etc/apt/keyrings/yandex-disk.gpg] http://repo.yandex.ru/yandex-disk/deb/ stable main' | \
+      sudo tee /etc/apt/sources.list.d/yandex-disk.list
+  args:
+    executable: "{{ bash_executables }}"
+
+- name: Install yandex-disk binary
+  ansible.builtin.apt:
+    name: yandex-disk
+    update_cache: true
