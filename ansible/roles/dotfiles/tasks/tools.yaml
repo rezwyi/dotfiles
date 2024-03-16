@@ -19,3 +19,6 @@
 
 - name: Setup Kubernetes tools
   ansible.builtin.include_tasks: setup-tools/kubernetes.yaml
+
+- name: Setup Yandex.Disk
+  ansible.builtin.include_tasks: setup-tools/yandex-disk.yaml
