@@ -2,6 +2,14 @@
 - name: Include OS specific variables
   ansible.builtin.include_tasks: vars.yaml
 
+- name: Ensure /etc/apt/keyrings dir is present
+  ansible.builtin.file:
+    name: /etc/apt/keyrings
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+
 - name: Create required dirs
   ansible.builtin.file:
     path: "{{ __item }}"
