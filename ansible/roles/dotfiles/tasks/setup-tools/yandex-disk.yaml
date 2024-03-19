@@ -20,6 +20,19 @@
     group: "{{ setup_system_user_group }}"
     mode: "0644"
 
+- name: Generate systemd unit file
+  ansible.builtin.template:
+    src: yandex-disk.service.j2
+    dest: /etc/systemd/system/yandex-disk.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Reload daemon
+    - Restart yandex-disk
+  when:
+    - setup_yc_disk_systemd_enabled
+
 - name: Add an apt signing key for Yandex.Disk
   ansible.builtin.apt_key:
     url: http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG

@@ -1,0 +1,9 @@
+---
+- name: Reload daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Restart yandex-disk
+  ansible.builtin.systemd:
+    name: yandex-disk
+    state: restarted
