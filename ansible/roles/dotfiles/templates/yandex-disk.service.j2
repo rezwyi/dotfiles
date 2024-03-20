@@ -3,16 +3,10 @@ Description=Yandex.Disk CLI
 After=network.target
 
 [Service]
-LimitFSIZE=infinity
-LimitCPU=infinity
-LimitAS=infinity
-LimitMEMLOCK=infinity
-LimitNOFILE=64000
-LimitNPROC=64000
 TasksMax=infinity
 User={{ setup_system_username }}
 Groupt={{ setup_system_user_group }}
-ExecStart=/usr/bin/yandex-disk --config={{ setup_yc_disk_config_dir }}/config.cfg --no-daemon
+ExecStart=/usr/bin/yandex-disk --config={{ setup_yc_disk_config_dir }}/config.cfg --dir={{ setup_yc_disk_dir }} --exclude-dirs={{ setup_yc_disk_exclude_dirs }} --no-daemon
 
 [Install]
 WantedBy=multi-user.target
