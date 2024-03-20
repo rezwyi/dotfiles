@@ -40,12 +40,10 @@
     state: present
 
 - name: Adding apt repository for Yandex.Disk
-  ansible.builtin.shell: |
-    set -o pipefail
-    echo 'deb [signed-by=/etc/apt/keyrings/yandex-disk.gpg] http://repo.yandex.ru/yandex-disk/deb/ stable main' | \
-      sudo tee /etc/apt/sources.list.d/yandex-disk.list
-  args:
-    executable: "{{ bash_executables }}"
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/yandex-disk.gpg] http://repo.yandex.ru/yandex-disk/deb/ stable main
+    state: present
+    filename: yandex-disk
 
 - name: Install yandex-disk binary
   ansible.builtin.apt:
