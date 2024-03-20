@@ -33,3 +33,4 @@ setup_k8s_k9s_shell_pod_namespace: default
 setup_yc_disk_dir: "{{ setup_system_user_home }}/my-disk"
 setup_yc_disk_config_dir: "{{ setup_system_user_home }}/.config/yandex-disk"
 setup_yc_disk_exclude_dirs: ""
+setup_yc_disk_systemd_enabled: false
