@@ -31,7 +31,7 @@
     - Reload daemon
     - Restart yandex-disk
   when:
-    - setup_yc_disk_systemd_enabled
+    - setup_yc_disk_systemd_enabled | bool
 
 - name: Add an apt signing key for Yandex.Disk
   ansible.builtin.apt_key:
