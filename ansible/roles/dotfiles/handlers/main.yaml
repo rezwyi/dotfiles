@@ -6,4 +6,5 @@
 - name: Restart yandex-disk
   ansible.builtin.systemd:
     name: yandex-disk
+    enabled: true
     state: restarted

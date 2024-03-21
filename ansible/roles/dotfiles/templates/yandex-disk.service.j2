@@ -5,7 +5,7 @@ After=network.target
 [Service]
 TasksMax=infinity
 User={{ setup_system_username }}
-Groupt={{ setup_system_user_group }}
+Group={{ setup_system_user_group }}
 ExecStart=/usr/bin/yandex-disk --config={{ setup_yc_disk_config_dir }}/config.cfg --dir={{ setup_yc_disk_dir }} --exclude-dirs={{ setup_yc_disk_exclude_dirs }} --no-daemon
 
 [Install]
