@@ -57,7 +57,7 @@ pathspec==0.12.1
 pillow==10.3.0
 platformdirs==2.5.4
 pluggy==1.0.0
-protobuf==3.20.3
+protobuf==4.25.3
 psutil==5.9.4
 pycodestyle==2.11.0
 pycparser==2.21
@@ -98,4 +98,4 @@ websocket-client==1.3.3
 Werkzeug==2.3.4
 wrapt==1.15.0
 yamllint==1.32.0
-yandexcloud==0.226.0
+yandexcloud==0.271.0
