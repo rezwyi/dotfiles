@@ -58,3 +58,11 @@
     owner: "{{ setup_system_username }}"
     group: "{{ setup_system_user_group }}"
     mode: "0644"
+
+- name: Generate .shell_funcs file
+  ansible.builtin.template:
+    src: shell-funcs.j2
+    dest: "{{ setup_system_user_home }}/.shell_funcs"
+    owner: "{{ setup_system_username }}"
+    group: "{{ setup_system_user_group }}"
+    mode: "0644"
