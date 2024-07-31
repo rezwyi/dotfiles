@@ -31,6 +31,7 @@
     - setup_zsh_oh_my_zsh_reinstall
 
 - name: Download and install oh-my-zsh
+  become: true
   become_user: "{{ setup_system_username }}"
   ansible.builtin.shell: |
     set -o pipefail && \
