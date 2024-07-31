@@ -11,6 +11,7 @@
     - .config/k9s
     - .config/k9s/skins
     - .local/state/k9s/screen-dumps
+    - .krew
   loop_control:
     loop_var: __item
 
@@ -52,5 +53,31 @@
     mode: "0644"
   with_fileglob:
     - "{{ role_path }}/files/k9s/skins/*"
+  loop_control:
+    loop_var: __item
+
+- name: Download and install krew
+  ansible.builtin.unarchive:
+    src: https://github.com/kubernetes-sigs/krew/releases/download/v{{ setup_k8s_krew_version }}/krew-linux_amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    mode: "0755"
+    extra_opts:
+      - --transform
+      - s/krew-linux_amd64/krew/
+  register: __install_krew
+  until: __install_krew is succeeded
+  retries: 5
+  delay: 2
+
+- name: Install krew plugins
+  ansible.builtin.command: |
+    krew install {{ __item }}
+  changed_when: true
+  register: __install_krew_plugin
+  until: __install_krew_plugin is succeeded
+  retries: 5
+  delay: 2
+  loop: "{{ setup_k8s_krew_plugins }}"
   loop_control:
     loop_var: __item
