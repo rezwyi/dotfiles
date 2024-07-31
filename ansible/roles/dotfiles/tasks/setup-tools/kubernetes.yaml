@@ -71,6 +71,8 @@
   delay: 2
 
 - name: Install krew plugins
+  become: true
+  become_user: "{{ dotfiles_system_username }}"
   ansible.builtin.command: |
     krew install {{ __item }}
   changed_when: true
