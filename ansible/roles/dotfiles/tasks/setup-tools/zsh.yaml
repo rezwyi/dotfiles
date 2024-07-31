@@ -1,69 +1,69 @@
 ---
 - name: Create source files
   ansible.builtin.file:
-    path: "{{ setup_system_user_home }}/{{ __item }}"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    path: "{{ dotfiles_system_user_home }}/{{ __item }}"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
     state: touch
     access_time: preserve
     modification_time: preserve
-  loop: "{{ setup_zshrc_source_files }}"
+  loop: "{{ dotfiles_zshrc_source_files }}"
   loop_control:
     loop_var: __item
 
 - name: Ensure Zsh is the user's shell
   ansible.builtin.user:
-    name: "{{ setup_system_username }}"
+    name: "{{ dotfiles_system_username }}"
     shell: /usr/bin/zsh
 
 - name: Check ~/.oh-my-zsh dir
   ansible.builtin.stat:
-    path: "{{ setup_system_user_home }}/.oh-my-zsh"
+    path: "{{ dotfiles_system_user_home }}/.oh-my-zsh"
   register: __oh_my_zsh_dir
 
 - name: Absent ~/.oh-my-zsh dir
   ansible.builtin.file:
-    path: "{{ setup_system_user_home }}/.oh-my-zsh"
+    path: "{{ dotfiles_system_user_home }}/.oh-my-zsh"
     state: absent
   when:
     - __oh_my_zsh_dir.stat.exists
-    - setup_zsh_oh_my_zsh_reinstall
+    - dotfiles_zsh_oh_my_zsh_reinstall
 
 - name: Download and install oh-my-zsh
   become: true
-  become_user: "{{ setup_system_username }}"
+  become_user: "{{ dotfiles_system_username }}"
   ansible.builtin.shell: |
     set -o pipefail && \
       curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | \
       bash -
   args:
-    chdir: "{{ setup_system_user_home }}"
+    chdir: "{{ dotfiles_system_user_home }}"
     executable: /usr/bin/bash
   changed_when: true
   when:
-    - not __oh_my_zsh_dir.stat.exists or setup_zsh_oh_my_zsh_reinstall
+    - not __oh_my_zsh_dir.stat.exists or dotfiles_zsh_oh_my_zsh_reinstall
 
 - name: Install gnzh.no-ruby-prompt.zsh-theme
   ansible.builtin.copy:
     src: files/zsh/themes/gnzh.no-ruby-prompt.zsh-theme
-    dest: "{{ setup_system_user_home }}/.oh-my-zsh/themes/gnzh.no-ruby-prompt.zsh-theme"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    dest: "{{ dotfiles_system_user_home }}/.oh-my-zsh/themes/gnzh.no-ruby-prompt.zsh-theme"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
 
 - name: Generate .zshrc file
   ansible.builtin.template:
     src: zshrc.j2
-    dest: "{{ setup_system_user_home }}/.zshrc"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    dest: "{{ dotfiles_system_user_home }}/.zshrc"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
 
 - name: Generate .shell_funcs file
   ansible.builtin.template:
     src: shell-funcs.j2
-    dest: "{{ setup_system_user_home }}/.shell_funcs"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    dest: "{{ dotfiles_system_user_home }}/.shell_funcs"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"

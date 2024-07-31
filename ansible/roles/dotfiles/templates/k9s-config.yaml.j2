@@ -1,6 +1,6 @@
 k9s:
   liveViewAutoRefresh: false
-  screenDumpDir: {{ setup_system_user_home }}/.local/state/k9s/screen-dumps
+  screenDumpDir: {{ dotfiles_system_user_home }}/.local/state/k9s/screen-dumps
   refreshRate: 2
   maxConnRetry: 5
   readOnly: false
@@ -8,7 +8,7 @@ k9s:
   skipLatestRevCheck: false
   disablePodCounting: false
   ui:
-    skin: {{ setup_k8s_k9s_ui_skin }}
+    skin: {{ dotfiles_k8s_k9s_ui_skin }}
     enableMouse: true
     headless: false
     logoless: true
@@ -16,8 +16,8 @@ k9s:
     reactive: false
     noIcons: false
   shellPod:
-    image: {{ setup_k8s_k9s_shell_pod_image }}
-    namespace: {{ setup_k8s_k9s_shell_pod_namespace }}
+    image: {{ dotfiles_k8s_k9s_shell_pod_image }}
+    namespace: {{ dotfiles_k8s_k9s_shell_pod_namespace }}
     limits:
       cpu: 100m
       memory: 100Mi

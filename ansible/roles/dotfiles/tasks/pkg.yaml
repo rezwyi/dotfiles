@@ -5,6 +5,6 @@
     state: present
     update_cache: true
   loop:
-    - "{{ setup_dist_packages }}"
+    - "{{ dotfiles_dist_packages }}"
   loop_control:
     loop_var: __item

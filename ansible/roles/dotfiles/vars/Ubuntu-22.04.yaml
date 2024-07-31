@@ -1,8 +1,8 @@
 ---
-ansible_python_interpreter: /usr/bin/python3
-bash_executables: /usr/bin/bash
+ansible_python_interpreter: /usr/bin/python3 # noqa: var-naming[no-role-prefix]
+bash_executables: /usr/bin/bash # noqa: var-naming[no-role-prefix]
 
-setup_dist_packages:
+dotfiles_dist_packages:
   - apt-transport-https
   - build-essential
   - ca-certificates
