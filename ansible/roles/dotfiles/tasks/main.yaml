@@ -13,13 +13,13 @@
 - name: Create required dirs
   ansible.builtin.file:
     path: "{{ __item }}"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
     state: directory
   loop:
-    - "{{ setup_system_user_template_dir }}"
-    - "{{ setup_system_user_home }}/.config"
+    - "{{ dotfiles_system_user_template_dir }}"
+    - "{{ dotfiles_system_user_home }}/.config"
   loop_control:
     loop_var: __item
 

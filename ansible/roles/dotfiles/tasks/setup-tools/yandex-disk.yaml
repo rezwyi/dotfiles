@@ -2,22 +2,22 @@
 - name: Ensure all directories exists
   ansible.builtin.file:
     path: "{{ __item }}"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
     state: directory
   loop:
-    - "{{ setup_yc_disk_config_dir }}"
-    - "{{ setup_yc_disk_dir }}"
+    - "{{ dotfiles_yc_disk_config_dir }}"
+    - "{{ dotfiles_yc_disk_dir }}"
   loop_control:
     loop_var: __item
 
 - name: Generate Yandex.Disk config
   ansible.builtin.template:
     src: yandex-disk-config.j2
-    dest: "{{ setup_yc_disk_config_dir }}/config.cfg"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    dest: "{{ dotfiles_yc_disk_config_dir }}/config.cfg"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
 
 - name: Generate systemd unit file
@@ -31,7 +31,7 @@
     - Reload daemon
     - Restart yandex-disk
   when:
-    - setup_yc_disk_systemd_enabled | bool
+    - dotfiles_yc_disk_systemd_enabled | bool
 
 - name: Add an apt signing key for Yandex.Disk
   ansible.builtin.apt_key:

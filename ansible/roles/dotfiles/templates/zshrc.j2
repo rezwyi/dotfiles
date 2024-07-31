@@ -7,7 +7,7 @@ ZSH=$HOME/.oh-my-zsh
 export EDITOR="vim"
 export GOPATH=$HOME/.go
 export LC_ALL="en_US.UTF-8"
-export PATH=/usr/X11/bin:/usr/local/share/npm/bin:/usr/local/go/bin:$GOPATH/bin:$HOME/.local/bin:$PATH
+export PATH=/usr/X11/bin:/usr/local/share/npm/bin:/usr/local/go/bin:$GOPATH/bin:$HOME/.local/bin:$HOME/.krew/bin:$PATH
 export PLATFORM="linux"
 export PY_COLORS=1
 export PYTHONDONTWRITEBYTECODE=1
@@ -18,7 +18,7 @@ export COLORTERM=truecolor
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="{{ setup_zsh_theme }}"
+ZSH_THEME="{{ dotfiles_zsh_theme }}"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
@@ -35,6 +35,6 @@ unsetopt correct
 source $ZSH/oh-my-zsh.sh
 
 # Source files
-{% for __sf in setup_zshrc_source_files %}
+{% for __sf in dotfiles_zshrc_source_files %}
 [[ -f "${HOME}/{{ __sf }}" ]] && source "${HOME}/{{ __sf }}"
 {% endfor %}

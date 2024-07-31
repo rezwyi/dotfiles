@@ -31,7 +31,7 @@ Example of extra vars file:
 
 ```yaml
 ---
-setup_system_username: foobar
-setup_git_username: John Doe
-setup_git_user_email: im@john.doe
+dotfiles_system_username: foobar
+dotfiles_git_username: John Doe
+dotfiles_git_user_email: im@john.doe
 ```

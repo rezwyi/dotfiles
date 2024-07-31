@@ -1,9 +1,9 @@
 ---
 - name: Ensure all directories exists
   ansible.builtin.file:
-    path: "{{ setup_system_user_home }}/{{ __item }}"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    path: "{{ dotfiles_system_user_home }}/{{ __item }}"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
     state: directory
   loop:
@@ -11,12 +11,13 @@
     - .config/k9s
     - .config/k9s/skins
     - .local/state/k9s/screen-dumps
+    - .krew
   loop_control:
     loop_var: __item
 
 - name: Download and install kubectl
   ansible.builtin.get_url:
-    url: https://dl.k8s.io/release/v{{ setup_k8s_kubectl_version }}/bin/linux/amd64/kubectl
+    url: https://dl.k8s.io/release/v{{ dotfiles_k8s_kubectl_version }}/bin/linux/amd64/kubectl
     dest: /usr/local/bin
     mode: "0755"
   register: __install_kubectl
@@ -26,7 +27,7 @@
 
 - name: Download and install k9s
   ansible.builtin.unarchive:
-    src: https://github.com/derailed/k9s/releases/download/v{{ setup_k8s_k9s_version }}/k9s_Linux_amd64.tar.gz
+    src: https://github.com/derailed/k9s/releases/download/v{{ dotfiles_k8s_k9s_version }}/k9s_Linux_amd64.tar.gz
     dest: /usr/local/bin
     remote_src: true
     mode: "0755"
@@ -38,19 +39,47 @@
 - name: Generate k9s config file
   ansible.builtin.template:
     src: k9s-config.yaml.j2
-    dest: "{{ setup_system_user_home }}/.config/k9s/config.yaml"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    dest: "{{ dotfiles_system_user_home }}/.config/k9s/config.yaml"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
 
 - name: Copy k9s solarized-light skin
   ansible.builtin.copy:
     src: "{{ __item }}"
-    dest: "{{ setup_system_user_home }}/.config/k9s/skins"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    dest: "{{ dotfiles_system_user_home }}/.config/k9s/skins"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
   with_fileglob:
     - "{{ role_path }}/files/k9s/skins/*"
+  loop_control:
+    loop_var: __item
+
+- name: Download and install krew
+  ansible.builtin.unarchive:
+    src: https://github.com/kubernetes-sigs/krew/releases/download/v{{ dotfiles_k8s_krew_version }}/krew-linux_amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    mode: "0755"
+    extra_opts:
+      - --transform
+      - s/krew-linux_amd64/krew/
+  register: __install_krew
+  until: __install_krew is succeeded
+  retries: 5
+  delay: 2
+
+- name: Install krew plugins
+  become: true
+  become_user: "{{ dotfiles_system_username }}"
+  ansible.builtin.command: |
+    krew install {{ __item }}
+  changed_when: true
+  register: __install_krew_plugin
+  until: __install_krew_plugin is succeeded
+  retries: 5
+  delay: 2
+  loop: "{{ dotfiles_k8s_krew_plugins }}"
   loop_control:
     loop_var: __item

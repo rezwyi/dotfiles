@@ -2,9 +2,9 @@
 - name: Copy gtk.css
   ansible.builtin.copy:
     src: gtk-3.0/gtk.css
-    dest: "{{ setup_system_user_home }}/.config/gtk-3.0/gtk.css"
-    owner: "{{ setup_system_username }}"
-    group: "{{ setup_system_user_group }}"
+    dest: "{{ dotfiles_system_user_home }}/.config/gtk-3.0/gtk.css"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
 
 - name: Import gnome-terminal settings
@@ -12,20 +12,21 @@
     - name: Generate gnome-terminal settings file
       ansible.builtin.template:
         src: gnome-terminal-settings.j2
-        dest: "{{ setup_system_user_template_dir }}/gnome-terminal-settings"
-        owner: "{{ setup_system_username }}"
-        group: "{{ setup_system_user_group }}"
+        dest: "{{ dotfiles_system_user_template_dir }}/gnome-terminal-settings"
+        owner: "{{ dotfiles_system_username }}"
+        group: "{{ dotfiles_system_user_group }}"
         mode: "0644"
       register: __gnome_terminal_settings
     - name: Load setting using dconf load
-      become_user: "{{ setup_system_username }}"
+      become: true
+      become_user: "{{ dotfiles_system_username }}"
       ansible.builtin.shell: >
-        dconf load /org/gnome/terminal/legacy/ < {{ setup_system_user_template_dir }}/gnome-terminal-settings
+        dconf load /org/gnome/terminal/legacy/ < {{ dotfiles_system_user_template_dir }}/gnome-terminal-settings
       changed_when: true
       when: # noqa: no-handler
         - __gnome_terminal_settings is changed
   rescue:
     - name: Delete gnome-terminal settings file
       ansible.builtin.file:
-        path: "{{ setup_system_user_template_dir }}/gnome-terminal-settings"
+        path: "{{ dotfiles_system_user_template_dir }}/gnome-terminal-settings"
         state: absent
