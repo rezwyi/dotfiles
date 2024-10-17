@@ -67,3 +67,11 @@
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
+
+- name: Generate .shell_aliases file
+  ansible.builtin.template:
+    src: shell-aliases.j2
+    dest: "{{ dotfiles_system_user_home }}/.shell_aliases"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    mode: "0644"
