@@ -7,6 +7,8 @@ dotfiles_dist_packages:
   - build-essential
   - ca-certificates
   - curl
+  - duf
+  - exa
   - ipcalc
   - jq
   - nmap
