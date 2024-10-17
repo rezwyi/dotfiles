@@ -10,3 +10,7 @@ function __passgen() {
   local size=${1-32}
   strings /dev/random | grep -o "[[:alnum:]]" | head -n "$size" | tr -d "\n" && echo
 }
+
+function __kx() {
+  kubectl exec -it "$@" -- /bin/bash
+}
