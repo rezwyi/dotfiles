@@ -11,6 +11,7 @@ dotfiles_dist_packages:
   - exa
   - ipcalc
   - jq
+  - most
   - nmap
   - tcpdump
   - tmux

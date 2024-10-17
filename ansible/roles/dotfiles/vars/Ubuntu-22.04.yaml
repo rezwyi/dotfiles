@@ -12,6 +12,7 @@ dotfiles_dist_packages:
   - ipcalc
   - jq
   - nmap
+  - most
   - tcpdump
   - tmux
   - vim
