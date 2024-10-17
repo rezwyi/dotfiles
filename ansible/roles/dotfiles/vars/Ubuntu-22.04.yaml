@@ -6,13 +6,15 @@ dotfiles_dist_packages:
   - apt-transport-https
   - build-essential
   - ca-certificates
+  - cmatrix
   - curl
   - duf
   - exa
+  - htop
   - ipcalc
   - jq
-  - nmap
   - most
+  - nmap
   - tcpdump
   - tmux
   - vim
