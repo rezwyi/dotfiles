@@ -16,3 +16,5 @@ dotfiles_dist_packages:
   - wget
   - wireshark
   - zsh
+  - duf
+  - exa
