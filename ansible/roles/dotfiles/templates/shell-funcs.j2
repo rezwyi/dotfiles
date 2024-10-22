@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
-function __show_cert() {
+function __show_cert_text() {
   local srv=$1
   local port=${2-443}
   echo | openssl s_client -showcerts -servername "$srv" -connect "${srv}:${port}" 2>/dev/null | openssl x509 -inform pem -noout -text
+}
+
+function __show_cert_chain() {
+  local srv=$1
+  local port=${2-443}
+  local verify=${3-5}
+  echo | openssl s_client -verify "$verify" -servername "$srv" -connect "${srv}:${port}" 2>/dev/null | awk '/Certificate chain/,/---/'
 }
 
 function __passgen() {
