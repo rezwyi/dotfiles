@@ -22,3 +22,6 @@
 
 - name: Setup Yandex.Disk
   ansible.builtin.include_tasks: setup-tools/yandex-disk.yaml
+
+- name: Setup testssl.sh
+  ansible.builtin.include_tasks: setup-tools/testssl.sh.yaml

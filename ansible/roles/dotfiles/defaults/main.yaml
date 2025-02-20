@@ -39,3 +39,5 @@ dotfiles_yc_disk_dir: "{{ dotfiles_system_user_home }}/my-disk"
 dotfiles_yc_disk_config_dir: "{{ dotfiles_system_user_home }}/.config/yandex-disk"
 dotfiles_yc_disk_exclude_dirs: ""
 dotfiles_yc_disk_systemd_enabled: false
+
+dotfiles_testssl_sh_version: 3.0.9
