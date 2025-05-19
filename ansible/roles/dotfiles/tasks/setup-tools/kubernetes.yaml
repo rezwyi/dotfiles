@@ -19,6 +19,8 @@
   ansible.builtin.get_url:
     url: https://dl.k8s.io/release/v{{ dotfiles_k8s_kubectl_version }}/bin/linux/amd64/kubectl
     dest: /usr/local/bin
+    owner: root
+    group: root
     mode: "0755"
   register: __install_kubectl
   until: __install_kubectl is succeeded
@@ -30,7 +32,11 @@
     src: https://github.com/derailed/k9s/releases/download/v{{ dotfiles_k8s_k9s_version }}/k9s_Linux_amd64.tar.gz
     dest: /usr/local/bin
     remote_src: true
+    owner: root
+    group: root
     mode: "0755"
+    include:
+      - k9s
   register: __install_k9s
   until: __install_k9s is succeeded
   retries: 5
@@ -62,6 +68,10 @@
     dest: /usr/local/bin
     remote_src: true
     mode: "0755"
+    owner: root
+    group: root
+    include:
+      - ./krew-linux_amd64
     extra_opts:
       - --transform
       - s/krew-linux_amd64/krew/
@@ -83,3 +93,20 @@
   loop: "{{ dotfiles_k8s_krew_plugins }}"
   loop_control:
     loop_var: __item
+
+- name: Download and install helm
+  ansible.builtin.unarchive:
+    src: https://get.helm.sh/helm-v{{ dotfiles_k8s_helm_version }}-linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0755"
+    include:
+      - linux-amd64/helm
+    extra_opts:
+      - --strip-components=1
+  register: __install_helm
+  until: __install_helm is succeeded
+  retries: 5
+  delay: 2
