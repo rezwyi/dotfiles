@@ -83,3 +83,20 @@
   loop: "{{ dotfiles_k8s_krew_plugins }}"
   loop_control:
     loop_var: __item
+
+- name: Download and install helm
+  ansible.builtin.unarchive:
+    src: https://get.helm.sh/helm-v{{ dotfiles_k8s_helm_version }}-linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0755"
+    include:
+      - linux-amd64/helm
+    extra_opts:
+      - --strip-components=1
+  register: __install_helm
+  until: __install_helm is succeeded
+  retries: 5
+  delay: 2
