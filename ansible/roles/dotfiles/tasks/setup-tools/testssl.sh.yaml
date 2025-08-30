@@ -25,5 +25,5 @@
 - name: Create symbolic link
   ansible.builtin.file:
     src: "{{ dotfiles_system_user_home }}/.testssl.sh/testssl.sh-{{ dotfiles_testssl_sh_version }}/testssl.sh"
-    dest: /usr/local/bin/testssl.sh
+    dest: "{{ dotfiles_system_user_home }}/.local/bin/testssl.sh"
     state: link
