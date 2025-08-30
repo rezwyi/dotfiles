@@ -25,3 +25,6 @@
 
 - name: Setup testssl.sh
   ansible.builtin.include_tasks: setup-tools/testssl.sh.yaml
+
+- name: Setup cheat.sh
+  ansible.builtin.include_tasks: setup-tools/cht.sh.yaml
