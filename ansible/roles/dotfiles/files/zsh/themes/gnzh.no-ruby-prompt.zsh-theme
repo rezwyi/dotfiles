@@ -28,8 +28,13 @@ local return_code="%(?..%F{red}%? ↵%f)"
 local user_host="${PR_USER}%F{cyan}@${PR_HOST}"
 local current_dir="%B%F{blue}%~%f%b"
 local git_branch='$(git_prompt_info)'
+local python_venv=""
 
-PROMPT="╭─${user_host} ${current_dir} ${git_branch}
+if [[ -n "$VIRTUAL_ENV" ]]; then
+  python_venv='%F{magenta}($(basename $VIRTUAL_ENV))%f '
+fi
+
+PROMPT="╭─${user_host} ${current_dir} ${python_venv}${git_branch}
 ╰─$PR_PROMPT "
 RPROMPT="${return_code}"
 
