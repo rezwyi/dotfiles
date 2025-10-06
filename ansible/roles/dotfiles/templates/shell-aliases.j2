@@ -11,10 +11,11 @@ alias :mkdir="mkdir -pv"
 alias :myip="curl ifconfig.me && echo"
 alias :ping="ping -c 3" 
 alias :ps="ps auxww"
+alias :py="python3"
+alias :rsyncall="sudo rsync -avHK --sparse --delete --exclude='*.pid' --rsync-path='sudo rsync'"
+alias :tk="tmux kill-server"
 alias :top="bpytop"
 alias :x="exit"
-alias :tk="tmux kill-server"
-alias :rsyncall="sudo rsync -avHK --sparse --delete --exclude='*.pid' --rsync-path='sudo rsync'"
 
 # Kubectl
 alias :k="kubectl"
