@@ -20,4 +20,5 @@ dotfiles_dist_packages:
   - vim
   - wget
   - wireshark
+  - xsel
   - zsh
