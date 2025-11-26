@@ -1,5 +1,5 @@
 ---
-- name: Install specified python requirements
+- name: Install specified Python requirements
   become: true
   become_user: "{{ dotfiles_system_username }}"
   ansible.builtin.pip:
