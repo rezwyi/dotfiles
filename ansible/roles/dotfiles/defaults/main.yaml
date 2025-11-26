@@ -42,5 +42,3 @@ dotfiles_yc_disk_exclude_dirs: ""
 dotfiles_yc_disk_systemd_enabled: false
 
 dotfiles_testssl_sh_version: 3.0.9
-
-dotfiles_cheat_sh_style: solarized-light
