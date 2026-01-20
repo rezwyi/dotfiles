@@ -55,6 +55,7 @@ pip install --upgrade \
   ansible \
   ansible-lint \
   atlassian-python-api \
+  awscli \
   black \
   boto3 \
   bpytop \
