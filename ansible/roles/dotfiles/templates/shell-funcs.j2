@@ -13,6 +13,12 @@ function __show_cert_chain() {
   echo | openssl s_client -verify "$verify" -servername "$srv" -connect "${srv}:${port}" 2>/dev/null | awk '/Certificate chain/,/---/'
 }
 
+function __show_cert_fingerprint() {
+  local srv=$1
+  local port=${2-443}
+  echo | openssl s_client -connect "${srv}:${port}" < /dev/null 2>/dev/null | openssl x509 -fingerprint -noout
+}
+
 function __passgen() {
   local size=${1-32}
   strings /dev/random | grep -o "[[:alnum:]]" | head -n "$size" | tr -d "\n" && echo
