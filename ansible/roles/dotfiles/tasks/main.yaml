@@ -27,4 +27,7 @@
   ansible.builtin.include_tasks: pkg.yaml
 
 - name: Install and setup tools
-  ansible.builtin.include_tasks: tools.yaml
+  ansible.builtin.include_tasks: setup-tools.yaml
+
+- name: Apply security fixes and patches
+  ansible.builtin.include_tasks: security.yaml
