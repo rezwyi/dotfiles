@@ -14,7 +14,7 @@
 - name: Download and install testssl.sh
   ansible.builtin.unarchive:
     src: https://github.com/testssl/testssl.sh/archive/refs/tags/v{{ dotfiles_testssl_sh_version }}.tar.gz
-    dest: "{{ dotfiles_system_user_home }}/.testssl.sh"
+    dest: "{{ dotfiles_system_user_local_share_dir }}/testssl.sh"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
@@ -26,6 +26,6 @@
 
 - name: Create symbolic link
   ansible.builtin.file:
-    src: "{{ dotfiles_system_user_home }}/.testssl.sh/testssl.sh-{{ dotfiles_testssl_sh_version }}/testssl.sh"
-    dest: "{{ dotfiles_system_user_home }}/.local/bin/testssl.sh"
+    src: "{{ dotfiles_system_user_local_share_dir }}/testssl.sh/testssl.sh-{{ dotfiles_testssl_sh_version }}/testssl.sh"
+    dest: "{{ dotfiles_system_user_local_bin_dir }}/testssl.sh"
     state: link
