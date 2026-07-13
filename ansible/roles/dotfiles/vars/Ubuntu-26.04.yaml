@@ -9,7 +9,7 @@ dotfiles_dist_packages:
   - cmatrix
   - curl
   - duf
-  - eza
+  - gnupg
   - htop
   - ipcalc
   - jq

@@ -1,0 +1,40 @@
+---
+- name: Download apt signing key for eza
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
+    dest: /etc/apt/keyrings/gierens.asc
+    mode: "0644"
+    timeout: 60
+  register: __eza_key_download_status
+
+- name: Dearmor apt signing key for eza
+  ansible.builtin.command:
+    cmd: gpg --dearmor --yes --output /etc/apt/keyrings/gierens.gpg /etc/apt/keyrings/gierens.asc
+  when: __eza_key_download_status is changed
+
+- name: Set permissions on eza apt signing key
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/gierens.gpg
+    owner: root
+    group: root
+    mode: "0644"
+  when: __eza_key_download_status is changed
+
+- name: Adding apt repository for eza
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main
+    state: present
+    filename: gierens
+
+- name: Set permissions on eza apt repository list
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/gierens.list
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install eza
+  ansible.builtin.apt:
+    name: eza
+    state: present
+    update_cache: true
