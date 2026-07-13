@@ -33,7 +33,7 @@
     group: root
     mode: "0644"
 
-- name: Install eza
+- name: Install eza binary
   ansible.builtin.apt:
     name: eza
     state: present
