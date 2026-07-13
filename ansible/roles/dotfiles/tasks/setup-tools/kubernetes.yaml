@@ -22,6 +22,7 @@
     owner: root
     group: root
     mode: "0755"
+    timeout: 60
   register: __install_kubectl
   until: __install_kubectl is succeeded
   retries: 5
