@@ -1,13 +1,13 @@
 ---
 - name: Ensure all directories exists
   ansible.builtin.file:
-    path: "{{ dotfiles_system_user_home }}/{{ __item }}"
+    path: "{{ dotfiles_system_user_local_share_dir }}/{{ __item }}"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
     state: directory
   loop:
-    - .testssl.sh
+    - testssl.sh
   loop_control:
     loop_var: __item
 
