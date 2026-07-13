@@ -1,0 +1,24 @@
+---
+ansible_python_interpreter: /usr/bin/python3 # noqa: var-naming[no-role-prefix]
+bash_executables: /usr/bin/bash # noqa: var-naming[no-role-prefix]
+
+dotfiles_dist_packages:
+  - apt-transport-https
+  - build-essential
+  - ca-certificates
+  - cmatrix
+  - curl
+  - duf
+  - exa
+  - htop
+  - ipcalc
+  - jq
+  - most
+  - nmap
+  - tcpdump
+  - tmux
+  - vim
+  - wget
+  - wireshark
+  - xsel
+  - zsh
