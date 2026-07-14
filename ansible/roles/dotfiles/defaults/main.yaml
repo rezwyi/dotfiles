@@ -18,6 +18,8 @@ dotfiles_zshrc_source_files:
   - .shell_funcs
   - .work_dirs
 
+dotfiles_tmux_theme: solarized-light
+
 dotfiles_vim_nerdtree_version: bc606c4
 
 dotfiles_gnome_terminal_font_name: Monospace
