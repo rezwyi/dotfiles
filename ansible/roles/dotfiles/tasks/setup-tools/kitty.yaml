@@ -1,0 +1,87 @@
+---
+- name: Ensure kitty directories exists
+  ansible.builtin.file:
+    path: "{{ __item }}"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    mode: "0755"
+    state: directory
+  loop:
+    - "{{ dotfiles_system_user_config_dir }}/kitty"
+    - "{{ dotfiles_system_user_local_share_dir }}/kitty.app"
+    - "{{ dotfiles_system_user_local_share_dir }}/applications"
+  loop_control:
+    loop_var: __item
+
+- name: Download kitty
+  ansible.builtin.get_url:
+    url: https://github.com/kovidgoyal/kitty/releases/download/v{{ dotfiles_kitty_version }}/kitty-{{ dotfiles_kitty_version }}-x86_64.txz
+    dest: /tmp/kitty-{{ dotfiles_kitty_version }}-x86_64.txz
+    mode: "0644"
+    timeout: 60
+  register: __download_kitty
+  until: __download_kitty is succeeded
+  retries: 5
+  delay: 2
+
+- name: Install kitty
+  ansible.builtin.unarchive:
+    src: /tmp/kitty-{{ dotfiles_kitty_version }}-x86_64.txz
+    dest: "{{ dotfiles_system_user_local_share_dir }}/kitty.app"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    remote_src: true
+
+- name: Create symbolic links for kitty binaries
+  ansible.builtin.file:
+    src: "{{ dotfiles_system_user_local_share_dir }}/kitty.app/bin/{{ __item }}"
+    dest: "{{ dotfiles_system_user_local_bin_dir }}/{{ __item }}"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    state: link
+  loop:
+    - kitty
+    - kitten
+  loop_control:
+    loop_var: __item
+
+- name: Generate kitty config file
+  ansible.builtin.template:
+    src: kitty.conf.j2
+    dest: "{{ dotfiles_system_user_config_dir }}/kitty/kitty.conf"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    mode: "0644"
+
+- name: Install kitty desktop entries
+  ansible.builtin.copy:
+    src: "{{ dotfiles_system_user_local_share_dir }}/kitty.app/share/applications/{{ __item }}"
+    dest: "{{ dotfiles_system_user_local_share_dir }}/applications/{{ __item }}"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    mode: "0644"
+    remote_src: true
+  loop:
+    - kitty.desktop
+    - kitty-open.desktop
+  loop_control:
+    loop_var: __item
+
+- name: Set absolute Icon path in kitty desktop entries
+  ansible.builtin.replace:
+    path: "{{ dotfiles_system_user_local_share_dir }}/applications/{{ __item }}"
+    regexp: "^Icon=kitty$"
+    replace: "Icon={{ dotfiles_system_user_local_share_dir }}/kitty.app/share/icons/hicolor/256x256/apps/kitty.png"
+  loop:
+    - kitty.desktop
+    - kitty-open.desktop
+  loop_control:
+    loop_var: __item
+
+- name: Set kitty as default terminal
+  ansible.builtin.copy:
+    content: kitty.desktop
+    dest: "{{ dotfiles_system_user_config_dir }}/xdg-terminals.list"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    mode: "0644"

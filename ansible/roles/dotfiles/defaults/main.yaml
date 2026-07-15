@@ -23,11 +23,14 @@ dotfiles_tmux_theme: solarized-light
 
 dotfiles_vim_nerdtree_version: bc606c4
 
-dotfiles_gnome_terminal_font_name: Monospace
-dotfiles_gnome_terminal_font_size: 12
-dotfiles_gnome_terminal_font: "{{ dotfiles_gnome_terminal_font_name }} {{ dotfiles_gnome_terminal_font_size }}"
-dotfiles_gnome_terminal_default_size_columns: 120
-dotfiles_gnome_terminal_default_size_rows: 48
+dotfiles_kitty_version: 0.47.4
+dotfiles_kitty_theme: solarized-light
+dotfiles_kitty_font_family: monospace
+dotfiles_kitty_font_size: 12
+dotfiles_kitty_window_columns: 120
+dotfiles_kitty_window_rows: 48
+dotfiles_kitty_window_padding: 15
+dotfiles_kitty_background_opacity: "0.94"
 
 dotfiles_k8s_kubectl_version: 1.29.1
 dotfiles_k8s_k9s_version: 0.32.3
