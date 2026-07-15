@@ -2,9 +2,10 @@
 dotfiles_system_username: foobar
 dotfiles_system_user_group: "{{ dotfiles_system_username }}"
 dotfiles_system_user_home: /home/{{ dotfiles_system_username }}
-dotfiles_system_user_template_dir: "{{ dotfiles_system_user_home }}/.templates"
+dotfiles_system_user_config_dir: "{{ dotfiles_system_user_home }}/.config"
 dotfiles_system_user_local_bin_dir: "{{ dotfiles_system_user_home }}/.local/bin"
 dotfiles_system_user_local_share_dir: "{{ dotfiles_system_user_home }}/.local/share"
+dotfiles_system_user_templates_dir: "{{ dotfiles_system_user_home }}/.templates"
 
 dotfiles_git_username: foobar
 dotfiles_git_user_email: foo@bar.baz
@@ -41,7 +42,7 @@ dotfiles_k8s_krew_plugins:
   - outdated
 
 dotfiles_yc_disk_dir: "{{ dotfiles_system_user_home }}/my-disk"
-dotfiles_yc_disk_config_dir: "{{ dotfiles_system_user_home }}/.config/yandex-disk"
+dotfiles_yc_disk_config_dir: "{{ dotfiles_system_user_config_dir }}/yandex-disk"
 dotfiles_yc_disk_exclude_dirs: ""
 dotfiles_yc_disk_systemd_enabled: false
 
