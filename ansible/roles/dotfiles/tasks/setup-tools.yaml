@@ -2,6 +2,9 @@
 - name: Setup Git
   ansible.builtin.include_tasks: setup-tools/git.yaml
 
+- name: Setup eza
+  ansible.builtin.include_tasks: setup-tools/eza.yaml
+
 - name: Setup Zsh
   ansible.builtin.include_tasks: setup-tools/zsh.yaml
 

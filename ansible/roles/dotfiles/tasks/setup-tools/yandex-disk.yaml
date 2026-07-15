@@ -33,11 +33,26 @@
   when:
     - dotfiles_yc_disk_systemd_enabled | bool
 
-- name: Add an apt signing key for Yandex.Disk
-  ansible.builtin.apt_key:
+- name: Download apt signing key for Yandex.Disk
+  ansible.builtin.get_url:
     url: http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
-    keyring: /etc/apt/keyrings/yandex-disk.gpg
-    state: present
+    dest: /etc/apt/keyrings/yandex-disk.asc
+    mode: "0644"
+    timeout: 60
+  register: __yandex_disk_key_download_status
+
+- name: Dearmor apt signing key for Yandex.Disk
+  ansible.builtin.command:
+    cmd: gpg --dearmor --yes --output /etc/apt/keyrings/yandex-disk.gpg /etc/apt/keyrings/yandex-disk.asc
+  when: __yandex_disk_key_download_status is changed
+
+- name: Set permissions on Yandex.Disk apt signing key
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/yandex-disk.gpg
+    owner: root
+    group: root
+    mode: "0644"
+  when: __yandex_disk_key_download_status is changed
 
 - name: Adding apt repository for Yandex.Disk
   ansible.builtin.apt_repository:

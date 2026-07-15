@@ -4,4 +4,6 @@
   become_user: "{{ dotfiles_system_username }}"
   ansible.builtin.pip:
     requirements: "{{ role_path }}/files/python-pip/requirements.txt"
-    extra_args: --user
+    extra_args: |
+      --user
+      --break-system-packages

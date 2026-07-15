@@ -14,9 +14,11 @@ To install these dependencies (on `Ubuntu`, for example):
 sudo apt update && sudo apt install -y \
   python3 \
   python3-pip \
+  python3-venv \
   git
 
-pip install --upgrade --user ansible
+pip install --upgrade --user --break-system-packages \
+  ansible-core==2.17.14
 ```
 
 ## Usage
@@ -24,6 +26,7 @@ pip install --upgrade --user ansible
 ```shell
 git clone https://github.com/rezwyi/dotfiles.git
 cd dotfiles
+export PATH="${PATH}:${HOME}/.local/bin"
 ansible-playbook main.yaml --extra-vars "@/path/to/the/file/with/extra/vars.yaml"
 ```
 

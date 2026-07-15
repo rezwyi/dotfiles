@@ -4,9 +4,9 @@ alias :c="clear"
 alias :df="duf -only local"
 alias :f5="source $HOME/.zshrc"
 alias :grep="grep -n --color"
-alias :ll="exa --long --header"
-alias :ls="exa"
-alias :lt="exa --tree"
+alias :ls="eza"
+alias :ll="eza --long --header"
+alias :lt="eza --tree"
 alias :m="cmatrix -abs"
 alias :mkdir="mkdir -pv"
 alias :myip="curl ifconfig.me && echo"
@@ -17,6 +17,9 @@ alias :rsyncall="sudo rsync -avHK --sparse --delete --exclude='*.pid' --rsync-pa
 alias :tk="tmux kill-server"
 alias :top="bpytop"
 alias :x="exit"
+alias :shortdig="dig +short"
+alias :wttr="curl -s wttr.in/{{ dotfiles_wttr_in_location }}"
+alias :wttrs="curl -s wttr.in/{{ dotfiles_wttr_in_location }}\?format=3"
 
 ## Kubernetes
 ##
