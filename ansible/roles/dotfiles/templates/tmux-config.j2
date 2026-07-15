@@ -59,10 +59,10 @@ set-option -g status-interval 2
 set-option -g status-justify "centre"
 set-option -g status-left-length 90
 set-option -g status-right-length 90
-set-option -g status-left '#[fg=green](#S) #(whoami)@#(hostname)'
-set-option -g status-right '#[fg=green]#(date "+%-d/%-m/%y %H:%M")'
+set-option -g status-right '#[fg=green]#(whoami)@#(hostname)'
+set-option -g status-left '#[fg=green]💻(#S) ⌚#(date "+%-d/%-m/%y %H:%M")'
 {% if dotfiles_tmux_theme == 'solarized-dark' %}
-set-option -g status-style fg=yellow,bg=black
+set-option -g status-style fg=yellow,bg=brightblack
 {% else %}
 set-option -g status-style fg=yellow,bg=white
 {% endif %}
