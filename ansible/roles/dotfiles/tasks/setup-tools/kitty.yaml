@@ -67,6 +67,28 @@
   loop_control:
     loop_var: __item
 
+- name: Set absolute Exec path in kitty desktop entries
+  ansible.builtin.replace:
+    path: "{{ dotfiles_system_user_local_share_dir }}/applications/{{ __item }}"
+    regexp: "^Exec=kitty"
+    replace: "Exec={{ dotfiles_system_user_local_share_dir }}/kitty.app/bin/kitty"
+  loop:
+    - kitty.desktop
+    - kitty-open.desktop
+  loop_control:
+    loop_var: __item
+
+- name: Set absolute TryExec path in kitty desktop entries
+  ansible.builtin.replace:
+    path: "{{ dotfiles_system_user_local_share_dir }}/applications/{{ __item }}"
+    regexp: "^TryExec=kitty$"
+    replace: "TryExec={{ dotfiles_system_user_local_share_dir }}/kitty.app/bin/kitty"
+  loop:
+    - kitty.desktop
+    - kitty-open.desktop
+  loop_control:
+    loop_var: __item
+
 - name: Set absolute Icon path in kitty desktop entries
   ansible.builtin.replace:
     path: "{{ dotfiles_system_user_local_share_dir }}/applications/{{ __item }}"
