@@ -58,7 +58,7 @@
     group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
 
-- name: Copy k9s solarized-light skin
+- name: Copy k9s skins
   ansible.builtin.copy:
     src: "{{ __item }}"
     dest: "{{ dotfiles_system_user_home }}/.config/k9s/skins"
