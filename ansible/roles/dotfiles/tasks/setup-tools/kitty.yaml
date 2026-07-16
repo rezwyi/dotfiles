@@ -107,3 +107,12 @@
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
+
+- name: Register kitty as x-terminal-emulator alternative
+  become: true
+  community.general.alternatives:
+    name: x-terminal-emulator
+    link: /usr/bin/x-terminal-emulator
+    path: "{{ dotfiles_system_user_local_share_dir }}/kitty.app/bin/kitty"
+    priority: 50
+    state: selected
