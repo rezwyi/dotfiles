@@ -15,6 +15,7 @@ dotfiles_dist_packages:
   - jq
   - most
   - nmap
+  - openvpn
   - tcpdump
   - tmux
   - vim
