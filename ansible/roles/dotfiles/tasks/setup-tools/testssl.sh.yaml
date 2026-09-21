@@ -11,18 +11,25 @@
   loop_control:
     loop_var: __item
 
-- name: Download and install testssl.sh
+- name: Download testssl.sh
+  ansible.builtin.get_url:
+    url: https://github.com/testssl/testssl.sh/archive/refs/tags/v{{ dotfiles_testssl_sh_version }}.tar.gz
+    dest: /tmp/testssl.sh-{{ dotfiles_testssl_sh_version }}.tar.gz
+    mode: "0644"
+    timeout: 60
+  register: __download_testssl_sh
+  until: __download_testssl_sh is succeeded
+  retries: 5
+  delay: 2
+
+- name: Install testssl.sh
   ansible.builtin.unarchive:
-    src: https://github.com/testssl/testssl.sh/archive/refs/tags/v{{ dotfiles_testssl_sh_version }}.tar.gz
+    src: /tmp/testssl.sh-{{ dotfiles_testssl_sh_version }}.tar.gz
     dest: "{{ dotfiles_system_user_local_share_dir }}/testssl.sh"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
     remote_src: true
-  register: __install_testssl_sh
-  until: __install_testssl_sh is succeeded
-  retries: 5
-  delay: 2
 
 - name: Create symbolic link
   ansible.builtin.file:

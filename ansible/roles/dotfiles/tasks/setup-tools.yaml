@@ -17,9 +17,6 @@
 - name: Setup Tmux
   ansible.builtin.include_tasks: setup-tools/tmux.yaml
 
-- name: Setup terminal
-  ansible.builtin.include_tasks: setup-tools/terminal.yaml
-
 - name: Setup Kubernetes tools
   ansible.builtin.include_tasks: setup-tools/kubernetes.yaml
 
@@ -28,3 +25,6 @@
 
 - name: Setup testssl.sh
   ansible.builtin.include_tasks: setup-tools/testssl.sh.yaml
+
+- name: Setup kitty
+  ansible.builtin.include_tasks: setup-tools/kitty.yaml

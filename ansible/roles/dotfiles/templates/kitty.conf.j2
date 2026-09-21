@@ -1,0 +1,65 @@
+# Font
+font_family {{ dotfiles_kitty_font_family }}
+font_size {{ dotfiles_kitty_font_size }}
+
+# Window
+initial_window_width {{ dotfiles_kitty_window_columns }}c
+initial_window_height {{ dotfiles_kitty_window_rows }}c
+window_padding_width {{ dotfiles_kitty_window_padding }}
+background_opacity {{ dotfiles_kitty_background_opacity }}
+remember_window_size yes
+
+# Tabs
+tab_bar_style powerline
+tab_bar_edge top
+tab_powerline_style slanted
+
+{% if dotfiles_kitty_theme == 'solarized-dark' %}
+# Solarized Dark
+foreground #839496
+background #002b36
+selection_foreground #93a1a1
+selection_background #073642
+cursor #839496
+cursor_text_color #002b36
+{% else %}
+# Solarized Light
+foreground #657b83
+background #fdf6e3
+selection_foreground #586e75
+selection_background #eee8d5
+cursor #657b83
+cursor_text_color #fdf6e3
+{% endif %}
+
+# black
+color0 #073642
+color8 #002b36
+
+# red
+color1 #dc322f
+color9 #cb4b16
+
+# green
+color2 #859900
+color10 #586e75
+
+# yellow
+color3 #b58900
+color11 #657b83
+
+# blue
+color4 #268bd2
+color12 #839496
+
+# magenta
+color5 #d33682
+color13 #6c71c4
+
+# cyan
+color6 #2aa198
+color14 #93a1a1
+
+# white
+color7 #eee8d5
+color15 #fdf6e3
