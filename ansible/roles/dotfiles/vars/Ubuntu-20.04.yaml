@@ -9,6 +9,7 @@ dotfiles_dist_packages:
   - cmatrix
   - curl
   - duf
+  - flameshot
   - gnupg
   - htop
   - ipcalc
