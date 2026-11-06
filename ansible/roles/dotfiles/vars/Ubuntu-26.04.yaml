@@ -9,12 +9,14 @@ dotfiles_dist_packages:
   - cmatrix
   - curl
   - duf
+  - flameshot
   - gnupg
   - htop
   - ipcalc
   - jq
   - most
   - nmap
+  - openvpn
   - tcpdump
   - tmux
   - vim
