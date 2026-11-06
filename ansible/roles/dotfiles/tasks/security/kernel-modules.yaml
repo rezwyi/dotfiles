@@ -1,0 +1,32 @@
+---
+- name: Remove legacy algif_aead blacklist
+  ansible.builtin.file:
+    path: /etc/modprobe.d/blacklist-algif_aead.conf
+    state: absent
+
+- name: Blacklist vulnerable kernel modules
+  ansible.builtin.template:
+    src: security-modprobe.conf.j2
+    dest: /etc/modprobe.d/dotfiles-security.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Update initramfs
+
+- name: Unload vulnerable kernel modules
+  community.general.modprobe:
+    name: "{{ __item }}"
+    state: absent
+  loop: "{{ dotfiles_security_blacklisted_modules }}"
+  loop_control:
+    loop_var: __item
+  register: __unload_modules
+  failed_when: false
+
+- name: Warn about modules that are still loaded
+  ansible.builtin.debug:
+    msg: "Module {{ __item.__item }} is in use and will be unloaded after reboot"
+  loop: "{{ __unload_modules.results | selectattr('failed', 'defined') | selectattr('failed') | list }}"
+  loop_control:
+    loop_var: __item
+    label: "{{ __item.__item }}"

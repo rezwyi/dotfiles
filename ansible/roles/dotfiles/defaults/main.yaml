@@ -75,3 +75,14 @@ dotfiles_yc_disk_systemd_enabled: false
 dotfiles_testssl_sh_version: 3.0.9
 
 dotfiles_wttr_in_location: London
+
+dotfiles_security_upgrade: true
+dotfiles_security_unattended_upgrades: true
+dotfiles_security_ptrace_restrict: false # CVE-2026-46333 (ssh-keysign-pwn); breaks non-root gdb/strace attach
+dotfiles_security_blacklisted_modules:
+  - algif_aead # CVE-2026-31431 (Copy Fail)
+  - esp4 # CVE-2026-43284 (Dirty Frag), CVE-2026-46300 (Fragnesia); breaks IPsec
+  - esp6 # CVE-2026-43284 (Dirty Frag), CVE-2026-46300 (Fragnesia); breaks IPsec
+  - rxrpc # CVE-2026-43500 (Dirty Frag); breaks AFS
+  - act_pedit # CVE-2026-46331 (pedit COW)
+  - rds # CVE-2026-43494 (PinTheft)

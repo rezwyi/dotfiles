@@ -67,6 +67,15 @@
     state: present
     update_cache: true
     allow_downgrade: true
+    allow_change_held_packages: true
+
+- name: Hold Docker packages at the pinned versions
+  ansible.builtin.dpkg_selections:
+    name: "{{ __item.split('=')[0] }}"
+    selection: hold
+  loop: "{{ dotfiles_docker_packages }}"
+  loop_control:
+    loop_var: __item
 
 - name: Ensure Docker daemon config directory exists
   ansible.builtin.file:
