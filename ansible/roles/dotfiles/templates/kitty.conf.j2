@@ -1,19 +1,29 @@
-# Font
+## Font
+##
 font_family {{ dotfiles_kitty_font_family }}
 font_size {{ dotfiles_kitty_font_size }}
 
-# Window
+## Window
+##
 initial_window_width {{ dotfiles_kitty_window_columns }}c
 initial_window_height {{ dotfiles_kitty_window_rows }}c
 window_padding_width {{ dotfiles_kitty_window_padding }}
-background_opacity {{ dotfiles_kitty_background_opacity }}
 remember_window_size yes
+background_opacity {{ dotfiles_kitty_background_opacity }}
+{% if dotfiles_kitty_background_image %}
+background_image {{ dotfiles_kitty_background_image }}
+background_image_layout cscaled
+background_tint 0.94
+{% endif %}
 
-# Tabs
+## Tabs
+##
 tab_bar_style powerline
 tab_bar_edge top
 tab_powerline_style slanted
 
+## Theme
+##
 {% if dotfiles_kitty_theme == 'solarized-dark' %}
 # Solarized Dark
 foreground #839496
