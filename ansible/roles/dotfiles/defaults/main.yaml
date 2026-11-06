@@ -45,6 +45,28 @@ dotfiles_k8s_krew_plugins:
   - deprecations
   - outdated
 
+dotfiles_docker_version: 29.9.3
+dotfiles_docker_containerd_version: 2.4.2-3
+dotfiles_docker_buildx_version: 0.38.1-1
+dotfiles_docker_compose_version: 5.7.0-1
+dotfiles_docker_apt_arch: "{{ ansible_architecture | replace('x86_64', 'amd64') | replace('aarch64', 'arm64') | replace('armv7l', 'armhf') }}"
+dotfiles_docker_apt_version_suffix: "~ubuntu.{{ ansible_distribution_version }}~{{ ansible_distribution_release }}"
+dotfiles_docker_ce_package: "docker-ce=5:{{ dotfiles_docker_version }}-1{{ dotfiles_docker_apt_version_suffix }}"
+dotfiles_docker_cli_package: "docker-ce-cli=5:{{ dotfiles_docker_version }}-1{{ dotfiles_docker_apt_version_suffix }}"
+dotfiles_docker_containerd_package: "containerd.io={{ dotfiles_docker_containerd_version }}{{ dotfiles_docker_apt_version_suffix }}"
+dotfiles_docker_buildx_package: "docker-buildx-plugin={{ dotfiles_docker_buildx_version }}{{ dotfiles_docker_apt_version_suffix }}"
+dotfiles_docker_compose_package: "docker-compose-plugin={{ dotfiles_docker_compose_version }}{{ dotfiles_docker_apt_version_suffix }}"
+dotfiles_docker_log_driver: json-file
+dotfiles_docker_log_max_size: 10m
+dotfiles_docker_log_max_file: "3"
+dotfiles_docker_live_restore: true
+dotfiles_docker_packages:
+  - "{{ dotfiles_docker_ce_package }}"
+  - "{{ dotfiles_docker_cli_package }}"
+  - "{{ dotfiles_docker_containerd_package }}"
+  - "{{ dotfiles_docker_buildx_package }}"
+  - "{{ dotfiles_docker_compose_package }}"
+
 dotfiles_yc_disk_dir: "{{ dotfiles_system_user_home }}/my-disk"
 dotfiles_yc_disk_config_dir: "{{ dotfiles_system_user_config_dir }}/yandex-disk"
 dotfiles_yc_disk_exclude_dirs: ""

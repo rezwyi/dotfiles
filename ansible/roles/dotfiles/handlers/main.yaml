@@ -8,3 +8,8 @@
     name: yandex-disk
     enabled: true
     state: restarted
+
+- name: Restart docker
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted

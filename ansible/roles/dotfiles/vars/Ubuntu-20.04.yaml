@@ -2,6 +2,11 @@
 ansible_python_interpreter: /usr/bin/python3 # noqa: var-naming[no-role-prefix]
 bash_executables: /usr/bin/bash # noqa: var-naming[no-role-prefix]
 
+dotfiles_docker_version: 28.1.1
+dotfiles_docker_buildx_version: 0.23.0-1
+dotfiles_docker_compose_version: 2.35.1-1
+dotfiles_docker_containerd_package: containerd.io=1.7.27-1
+
 dotfiles_dist_packages:
   - apt-transport-https
   - build-essential
