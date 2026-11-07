@@ -31,3 +31,6 @@
 
 - name: Setup kitty
   ansible.builtin.include_tasks: setup-tools/kitty.yaml
+
+- name: Setup AmneziaVPN
+  ansible.builtin.include_tasks: setup-tools/amnezia-vpn.yaml

@@ -1,0 +1,133 @@
+---
+- name: Install AmneziaVPN runtime dependencies
+  ansible.builtin.apt:
+    name: "{{ dotfiles_amnezia_vpn_packages }}"
+    state: present
+    update_cache: true
+
+- name: Ensure AmneziaVPN version marker directory exists
+  ansible.builtin.file:
+    path: "{{ dotfiles_amnezia_vpn_version_marker | dirname }}"
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+
+- name: Check AmneziaVPN version marker
+  ansible.builtin.slurp:
+    src: "{{ dotfiles_amnezia_vpn_version_marker }}"
+  register: __amnezia_vpn_version_marker
+  failed_when: false
+  changed_when: false
+
+- name: Stat AmneziaVPN install directory
+  ansible.builtin.stat:
+    path: "{{ dotfiles_amnezia_vpn_install_dir }}"
+  register: __amnezia_vpn_install_dir
+
+- name: Determine whether AmneziaVPN needs installation
+  ansible.builtin.set_fact:
+    __amnezia_vpn_needs_install: >-
+      {{
+        (not (__amnezia_vpn_install_dir.stat.exists | default(false)))
+        or (
+          (
+            (__amnezia_vpn_version_marker.content | b64decode | trim)
+            if __amnezia_vpn_version_marker.content is defined else ''
+          ) != (dotfiles_amnezia_vpn_version | string)
+        )
+      }}
+
+- name: Stat AmneziaVPN maintenance tool
+  ansible.builtin.stat:
+    path: "{{ dotfiles_amnezia_vpn_install_dir }}/maintenancetool"
+  register: __amnezia_vpn_maintenancetool
+
+- name: Purge existing AmneziaVPN before upgrade
+  ansible.builtin.command:
+    cmd: >-
+      {{ dotfiles_amnezia_vpn_install_dir }}/maintenancetool
+      pr -c --al --am
+  environment:
+    QT_QPA_PLATFORM: offscreen
+  when:
+    - __amnezia_vpn_needs_install | bool
+    - __amnezia_vpn_maintenancetool.stat.exists
+
+- name: Download AmneziaVPN installer
+  ansible.builtin.get_url:
+    url: "{{ dotfiles_amnezia_vpn_download_url }}"
+    dest: "/tmp/{{ dotfiles_amnezia_vpn_installer }}"
+    mode: "0755"
+    timeout: 120
+  register: __download_amnezia_vpn
+  until: __download_amnezia_vpn is succeeded
+  retries: 5
+  delay: 2
+  when: __amnezia_vpn_needs_install | bool
+
+- name: Install AmneziaVPN silently
+  ansible.builtin.command:
+    cmd: >-
+      /tmp/{{ dotfiles_amnezia_vpn_installer }}
+      --accept-licenses --default-answer --confirm-command in
+  environment:
+    QT_QPA_PLATFORM: offscreen
+  when: __amnezia_vpn_needs_install | bool
+
+- name: Write AmneziaVPN version marker
+  ansible.builtin.copy:
+    content: "{{ dotfiles_amnezia_vpn_version }}\n"
+    dest: "{{ dotfiles_amnezia_vpn_version_marker }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: __amnezia_vpn_needs_install | bool
+
+- name: Ensure AmneziaVPN service is enabled and started
+  ansible.builtin.systemd:
+    name: AmneziaVPN
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Stat iproute2 routing tables paths
+  ansible.builtin.stat:
+    path: "{{ __item }}"
+  loop:
+    - /etc/iproute2/rt_tables
+    - /usr/share/iproute2/rt_tables
+  register: __amnezia_vpn_rt_tables_stat
+  loop_control:
+    loop_var: __item
+
+- name: Register AmneziaVPN routing table
+  ansible.builtin.lineinfile:
+    path: "{{ __item.stat.path }}"
+    line: "{{ dotfiles_amnezia_vpn_rt_table_id }} {{ dotfiles_amnezia_vpn_rt_table_name }}"
+    regexp: '^\s*{{ dotfiles_amnezia_vpn_rt_table_id }}\s+{{ dotfiles_amnezia_vpn_rt_table_name }}\s*$'
+    state: present
+  loop: "{{ __amnezia_vpn_rt_tables_stat.results }}"
+  when: __item.stat.exists and __item.stat.isreg
+  loop_control:
+    loop_var: __item
+
+- name: Stat AmneziaVPN desktop entry
+  ansible.builtin.stat:
+    path: /usr/share/applications/AmneziaVPN.desktop
+  register: __amnezia_vpn_desktop
+
+- name: Force XCB platform in AmneziaVPN desktop entry
+  ansible.builtin.replace:
+    path: /usr/share/applications/AmneziaVPN.desktop
+    regexp: '^Exec=(?:env QT_QPA_PLATFORM=\S+\s+)?(.+)$'
+    replace: "Exec=env QT_QPA_PLATFORM={{ dotfiles_amnezia_vpn_qt_platform }} \\1"
+  when: __amnezia_vpn_desktop.stat.exists | default(false)
+
+- name: Ensure AmneziaVPN user data directory exists
+  ansible.builtin.file:
+    path: "{{ dotfiles_system_user_local_share_dir }}/AmneziaVPN.ORG/AmneziaVPN"
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    mode: "0755"
+    state: directory

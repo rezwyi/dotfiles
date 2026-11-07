@@ -88,13 +88,20 @@ dotfiles_testssl_sh_version: 3.0.9
 
 dotfiles_wttr_in_location: London
 
-dotfiles_security_upgrade: true
-dotfiles_security_unattended_upgrades: true
-dotfiles_security_ptrace_restrict: false # CVE-2026-46333 (ssh-keysign-pwn); breaks non-root gdb/strace attach
-dotfiles_security_blacklisted_modules:
-  - algif_aead # CVE-2026-31431 (Copy Fail)
-  - esp4 # CVE-2026-43284 (Dirty Frag), CVE-2026-46300 (Fragnesia); breaks IPsec
-  - esp6 # CVE-2026-43284 (Dirty Frag), CVE-2026-46300 (Fragnesia); breaks IPsec
-  - rxrpc # CVE-2026-43500 (Dirty Frag); breaks AFS
-  - act_pedit # CVE-2026-46331 (pedit COW)
-  - rds # CVE-2026-43494 (PinTheft)
+dotfiles_amnezia_vpn_version: 5.1.0.6
+dotfiles_amnezia_vpn_install_dir: /opt/AmneziaVPN
+dotfiles_amnezia_vpn_version_marker: "{{ dotfiles_system_var_lib_dir }}/amnezia-vpn.version"
+dotfiles_amnezia_vpn_installer: AmneziaVPN_{{ dotfiles_amnezia_vpn_version }}_linux_x64.run
+dotfiles_amnezia_vpn_download_url: >-
+  https://github.com/amnezia-vpn/amnezia-client/releases/download/{{ dotfiles_amnezia_vpn_version }}/{{ dotfiles_amnezia_vpn_installer }}
+dotfiles_amnezia_vpn_rt_table_id: 100
+dotfiles_amnezia_vpn_rt_table_name: amnvpnrt
+dotfiles_amnezia_vpn_qt_platform: xcb
+dotfiles_amnezia_vpn_packages:
+  - libxcb-cursor0
+  - libxcb-xinerama0
+  - libxcb-icccm4
+  - libxcb-keysyms1
+  - libopengl0
+  - libxkbcommon-x11-0
+  - libxcb-xkb1
