@@ -113,7 +113,7 @@
 
 - name: Ensure Docker client config directory is owned by the user
   ansible.builtin.file:
-    path: "{{ dotfiles_system_user_home }}/.docker"
+    path: "{{ dotfiles_system_user_home_dir }}/.docker"
     state: directory
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"

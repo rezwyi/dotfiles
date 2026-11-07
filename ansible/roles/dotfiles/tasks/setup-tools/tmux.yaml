@@ -1,7 +1,7 @@
 ---
 - name: Create tmux dir
   ansible.builtin.file:
-    path: "{{ dotfiles_system_user_home }}/.tmux"
+    path: "{{ dotfiles_system_user_home_dir }}/.tmux"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
@@ -10,7 +10,7 @@
 - name: Generate .tmux.conf file
   ansible.builtin.template:
     src: tmux-config.j2
-    dest: "{{ dotfiles_system_user_home }}/.tmux.conf"
+    dest: "{{ dotfiles_system_user_home_dir }}/.tmux.conf"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
