@@ -34,16 +34,22 @@ Example `extra-vars` file:
 
 ```yaml
 ---
-dotfiles_system_username: foobar
+dotfiles_system_username: johndoe
 dotfiles_git_username: John Doe
 dotfiles_git_user_email: im@john.doe
-dotfiles_yc_disk_exclude_dirs: Uploads
+dotfiles_yc_disk_exclude_dirs: Uploads,.venv
 dotfiles_yc_disk_systemd_enabled: true
-dotfiles_k8s_helm_version: 3.18.4
-dotfiles_k8s_k9s_version: 0.50.9
-dotfiles_k8s_krew_version: 0.4.5
-dotfiles_k8s_kubectl_version: 1.33.3
-dotfiles_testssl_sh_version: 3.2.1
+dotfiles_k8s_helm_version: 3.22.1
+dotfiles_k8s_k9s_version: 0.51.0
+dotfiles_k8s_k9s_theme: solarized-dark
+dotfiles_k8s_krew_version: 0.5.0
+dotfiles_k8s_kubectl_version: 1.37.1
+dotfiles_testssl_sh_version: 3.2.4
+dotfiles_tmux_theme: solarized-dark
+dotfiles_kitty_version: 0.50.0
+dotfiles_kitty_theme: solarized-dark
+dotfiles_kitty_background_image: /path/to/image.jpg
+dotfiles_amnezia_vpn_version: 5.1.0.6
 ```
 
 ## Updating `requirements.txt`

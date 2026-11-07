@@ -1,0 +1,22 @@
+---
+- name: Restrict ptrace to CAP_SYS_PTRACE (CVE-2026-46333)
+  ansible.posix.sysctl:
+    name: kernel.yama.ptrace_scope
+    value: "2"
+    sysctl_file: /etc/sysctl.d/99-CVE-2026-46333.conf
+    state: present
+    reload: true
+  when: dotfiles_security_ptrace_restrict | bool
+
+- name: Remove ptrace restriction
+  ansible.builtin.file:
+    path: /etc/sysctl.d/99-CVE-2026-46333.conf
+    state: absent
+  register: __ptrace_restriction_removed
+  when: not dotfiles_security_ptrace_restrict | bool
+
+- name: Restore default ptrace scope
+  ansible.builtin.command:
+    cmd: sysctl -w kernel.yama.ptrace_scope=1
+  changed_when: true
+  when: __ptrace_restriction_removed is changed

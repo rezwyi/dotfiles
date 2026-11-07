@@ -1,0 +1,8 @@
+{
+  "live-restore": {{ dotfiles_docker_live_restore | bool | ternary("true", "false") }},
+  "log-driver": "{{ dotfiles_docker_log_driver }}",
+  "log-opts": {
+    "max-file": "{{ dotfiles_docker_log_max_file }}",
+    "max-size": "{{ dotfiles_docker_log_max_size }}"
+  }
+}

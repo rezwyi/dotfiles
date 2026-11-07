@@ -5,6 +5,9 @@
 - name: Setup eza
   ansible.builtin.include_tasks: setup-tools/eza.yaml
 
+- name: Setup Docker
+  ansible.builtin.include_tasks: setup-tools/docker.yaml
+
 - name: Setup Zsh
   ansible.builtin.include_tasks: setup-tools/zsh.yaml
 
@@ -28,3 +31,6 @@
 
 - name: Setup kitty
   ansible.builtin.include_tasks: setup-tools/kitty.yaml
+
+- name: Setup AmneziaVPN
+  ansible.builtin.include_tasks: setup-tools/amnezia-vpn.yaml
