@@ -20,6 +20,7 @@ dotfiles_dist_packages:
   - ipcalc
   - jq
   - most
+  - neofetch
   - nmap
   - openvpn
   - tcpdump
