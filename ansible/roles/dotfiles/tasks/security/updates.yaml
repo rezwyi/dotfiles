@@ -1,0 +1,33 @@
+---
+- name: Upgrade all packages
+  ansible.builtin.apt:
+    upgrade: dist
+    update_cache: true
+  when: dotfiles_security_upgrade | bool
+
+- name: Install unattended-upgrades
+  ansible.builtin.apt:
+    name: unattended-upgrades
+    state: present
+  when: dotfiles_security_unattended_upgrades | bool
+
+- name: Enable unattended-upgrades
+  ansible.builtin.copy:
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    owner: root
+    group: root
+    mode: "0644"
+  when: dotfiles_security_unattended_upgrades | bool
+
+- name: Check whether a reboot is required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: __reboot_required
+
+- name: Warn about pending reboot
+  ansible.builtin.debug:
+    msg: Reboot is required to load the patched kernel and libraries
+  when: __reboot_required.stat.exists

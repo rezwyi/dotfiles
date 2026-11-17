@@ -1,7 +1,7 @@
 ---
 - name: Ensure all directories exists
   ansible.builtin.file:
-    path: "{{ dotfiles_system_user_home }}/{{ __item }}"
+    path: "{{ dotfiles_system_user_home_dir }}/{{ __item }}"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
@@ -53,7 +53,7 @@
 - name: Generate k9s config file
   ansible.builtin.template:
     src: k9s-config.yaml.j2
-    dest: "{{ dotfiles_system_user_home }}/.config/k9s/config.yaml"
+    dest: "{{ dotfiles_system_user_home_dir }}/.config/k9s/config.yaml"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
@@ -61,7 +61,7 @@
 - name: Copy k9s skins
   ansible.builtin.copy:
     src: "{{ __item }}"
-    dest: "{{ dotfiles_system_user_home }}/.config/k9s/skins"
+    dest: "{{ dotfiles_system_user_home_dir }}/.config/k9s/skins"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
@@ -132,4 +132,3 @@
       - linux-amd64/helm
     extra_opts:
       - --strip-components=1
-

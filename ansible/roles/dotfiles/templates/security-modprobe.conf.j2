@@ -1,0 +1,3 @@
+{% for module in dotfiles_security_blacklisted_modules %}
+install {{ module }} /bin/false
+{% endfor %}

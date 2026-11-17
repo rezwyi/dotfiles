@@ -1,0 +1,121 @@
+---
+- name: Gather installed package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Remove conflicting Docker packages
+  ansible.builtin.apt:
+    name: "{{ __item }}"
+    state: absent
+  loop:
+    - containerd
+    - docker-buildx
+    - docker-cli
+    - docker-compose
+    - docker-compose-v2
+    - docker-doc
+    - docker.io
+    - podman-docker
+    - runc
+  loop_control:
+    loop_var: __item
+  when: __item in ansible_facts.packages
+
+- name: Download apt signing key for Docker
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+    timeout: 60
+  register: __docker_key_download_status
+  until: __docker_key_download_status is succeeded
+  retries: 5
+  delay: 2
+
+- name: Dearmor apt signing key for Docker
+  ansible.builtin.command:
+    cmd: gpg --dearmor --yes --output /etc/apt/keyrings/docker.gpg /etc/apt/keyrings/docker.asc
+  when: __docker_key_download_status is changed
+  changed_when: true
+
+- name: Set permissions on Docker apt signing key
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/docker.gpg
+    owner: root
+    group: root
+    mode: "0644"
+  when: __docker_key_download_status is changed
+
+- name: Adding apt repository for Docker
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [arch={{ dotfiles_docker_apt_arch }} signed-by=/etc/apt/keyrings/docker.gpg]
+      https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    state: present
+    filename: docker
+
+- name: Set permissions on Docker apt repository list
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/docker.list
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install Docker Engine
+  ansible.builtin.apt:
+    name: "{{ dotfiles_docker_packages }}"
+    state: present
+    update_cache: true
+    allow_downgrade: true
+    allow_change_held_packages: true
+
+- name: Hold Docker packages at the pinned versions
+  ansible.builtin.dpkg_selections:
+    name: "{{ __item.split('=')[0] }}"
+    selection: hold
+  loop: "{{ dotfiles_docker_packages }}"
+  loop_control:
+    loop_var: __item
+
+- name: Ensure Docker daemon config directory exists
+  ansible.builtin.file:
+    path: /etc/docker
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+
+- name: Generate Docker daemon config
+  ansible.builtin.template:
+    src: docker-daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart docker
+
+- name: Enable and start Docker services
+  ansible.builtin.systemd:
+    name: "{{ __item }}"
+    enabled: true
+    state: started
+  loop:
+    - containerd
+    - docker
+  loop_control:
+    loop_var: __item
+
+- name: Allow the local user to manage Docker
+  ansible.builtin.user:
+    name: "{{ dotfiles_system_username }}"
+    groups: docker
+    append: true
+
+- name: Ensure Docker client config directory is owned by the user
+  ansible.builtin.file:
+    path: "{{ dotfiles_system_user_home_dir }}/.docker"
+    state: directory
+    owner: "{{ dotfiles_system_username }}"
+    group: "{{ dotfiles_system_user_group }}"
+    mode: "0755"
+    recurse: true

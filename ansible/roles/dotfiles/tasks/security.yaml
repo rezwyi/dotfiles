@@ -1,3 +1,9 @@
 ---
-- name: Applying fix for CVE-2026-31431 (aka CopyFail)
-  ansible.builtin.include_tasks: security/CVE-2026-31431.yaml
+- name: Apply security updates
+  ansible.builtin.include_tasks: security/updates.yaml
+
+- name: Block kernel modules affected by local privilege escalations
+  ansible.builtin.include_tasks: security/kernel-modules.yaml
+
+- name: Apply sysctl mitigations
+  ansible.builtin.include_tasks: security/sysctl.yaml

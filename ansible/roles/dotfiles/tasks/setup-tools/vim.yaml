@@ -1,7 +1,7 @@
 ---
 - name: Create pathogen dirs
   ansible.builtin.file:
-    path: "{{ dotfiles_system_user_home }}/.vim/{{ __item }}"
+    path: "{{ dotfiles_system_user_home_dir }}/.vim/{{ __item }}"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0755"
@@ -15,20 +15,20 @@
 - name: Download and install pathogen
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-    dest: "{{ dotfiles_system_user_home }}/.vim/autoload/pathogen.vim"
+    dest: "{{ dotfiles_system_user_home_dir }}/.vim/autoload/pathogen.vim"
     mode: "0755"
     timeout: 60
 
 - name: Download and install NERDTree plugin
   ansible.builtin.git:
     repo: https://github.com/scrooloose/nerdtree.git
-    dest: "{{ dotfiles_system_user_home }}/.vim/bundle/nerdtree"
+    dest: "{{ dotfiles_system_user_home_dir }}/.vim/bundle/nerdtree"
     version: "{{ dotfiles_vim_nerdtree_version }}"
 
 - name: Generate .vimrc file
   ansible.builtin.template:
     src: vim-config.j2
-    dest: "{{ dotfiles_system_user_home }}/.vimrc"
+    dest: "{{ dotfiles_system_user_home_dir }}/.vimrc"
     owner: "{{ dotfiles_system_username }}"
     group: "{{ dotfiles_system_user_group }}"
     mode: "0644"
